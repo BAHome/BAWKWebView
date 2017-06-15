@@ -26,6 +26,11 @@
  OC 版 ：https://github.com/BAHome/BAWKWebView
  
  最新更新时间：2017-06-15 【倒叙】
+ 最新Version：【Version：1.0.1】
+ 更新内容：
+ 1.0.1.1、适配 iOS 8 和 iOS 9
+ 
+ 最新更新时间：2017-06-15 【倒叙】
  最新Version：【Version：1.0.0】
  更新内容：
  1.0.0.1、用分类封装 WKWebView，代码无任何侵入更改
