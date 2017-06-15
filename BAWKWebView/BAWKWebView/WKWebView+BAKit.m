@@ -80,6 +80,13 @@
                    forKeyPath:@"estimatedProgress"
                       options:NSKeyValueObservingOptionNew
                       context:nil];
+    
+    // 监听 URL，当之前的 URL 不为空，而新的 URL 为空时则表示进程被终止
+    [self addObserver:self
+           forKeyPath:@"URL"
+              options:NSKeyValueObservingOptionNew
+              context:nil];
+
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -107,6 +114,14 @@
             self.ba_web_isLoadingBlock(self.loading, self.estimatedProgress);
         }
     }
+    else if ([keyPath isEqualToString:@"URL"])
+    {
+        NSURL *newUrl = [change objectForKey:NSKeyValueChangeNewKey];
+        NSURL *oldUrl = [change objectForKey:NSKeyValueChangeOldKey];
+        if (![newUrl isKindOfClass:[NSURL class]] && [oldUrl isKindOfClass:[NSURL class]]) {
+            [self reload];
+        };
+    }
     
     // 加载完成
     if (!self.loading)
@@ -117,6 +132,17 @@
         }
     }
 }
+
+#ifndef NSFoundationVersionNumber_iOS_9_0
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView NS_AVAILABLE(10_11, 9_0){
+    
+    NSLog(@"进程被终止");
+    NSLog(@"%@",webView.URL);
+    [webView reload];
+}
+#else
+
+#endif
 
 #pragma mark - custom Mothed
 - (BOOL)ba_externalAppRequiredToOpenURL:(NSURL *)url

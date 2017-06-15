@@ -130,6 +130,9 @@
 /*! 获取sharedApplication */
 #define BAKit_SharedApplication    [UIApplication sharedApplication]
 
+// 操作系统版本号
+#define BAKit_IOS_VERSION ([[[UIDevice currentDevice] systemVersion] floatValue])
+
 /*! 主线程同步队列 */
 #define dispatch_main_sync_safe(block)\
 if ([NSThread isMainThread]) {\

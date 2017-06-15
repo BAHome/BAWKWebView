@@ -36,18 +36,12 @@
     [self configBackItem];
     [self configMenuItem];
     
-    
     BAKit_WeakSelf;
     self.webView.ba_web_didStartBlock = ^(WKWebView *webView, WKNavigation *navigation) {
         
         BAKit_StrongSelf
         NSLog(@"开始加载网页");
-        // 开始加载网页时展示出progressView
-        self.progressView.hidden = NO;
-        // 开始加载网页的时候将progressView的Height恢复为1.5倍
-        self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
-        // 防止progressView被网页挡住
-        [self.navigationController.view bringSubviewToFront:self.progressView];
+
         
     };
     
@@ -58,23 +52,12 @@
     self.webView.ba_web_isLoadingBlock = ^(BOOL isLoading, CGFloat progress) {
         
         BAKit_StrongSelf
+        [self ba_web_progressShow];
         self.progressView.progress = progress;
-        if (self.progressView.progress == 1)
+        if (self.progressView.progress == 1.0f)
         {
-            /*
-             *添加一个简单的动画，将progressView的Height变为1.4倍，在开始加载网页的代理中会恢复为1.5倍
-             *动画时长0.25s，延时0.3s后开始动画
-             *动画结束后将progressView隐藏
-             */
-            
-            [UIView animateWithDuration:0.25f delay:0.3f options:UIViewAnimationOptionCurveEaseOut animations:^{
-                self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.4f);
-            } completion:^(BOOL finished) {
-                self.progressView.hidden = YES;
-                
-            }];
+            [self ba_web_progressHidder];
         }
-        
     };
     
     self.webView.ba_web_getTitleBlock = ^(NSString *title) {
@@ -88,6 +71,31 @@
         BAKit_StrongSelf
         self.ba_web_currentUrl = currentUrl;
     };
+}
+
+- (void)ba_web_progressShow
+{
+    // 开始加载网页时展示出progressView
+    self.progressView.hidden = NO;
+    // 开始加载网页的时候将progressView的Height恢复为1.5倍
+    self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
+    // 防止progressView被网页挡住
+    [self.navigationController.view bringSubviewToFront:self.progressView];
+}
+
+- (void)ba_web_progressHidder
+{
+    /*
+     *添加一个简单的动画，将progressView的Height变为1.4倍，在开始加载网页的代理中会恢复为1.5倍
+     *动画时长0.25s，延时0.3s后开始动画
+     *动画结束后将progressView隐藏
+     */
+    [UIView animateWithDuration:0.25f delay:0.3f options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.4f);
+    } completion:^(BOOL finished) {
+        self.progressView.hidden = YES;
+        
+    }];
 }
 
 /**
@@ -323,7 +331,8 @@
         
         _webConfig = [[WKWebViewConfiguration alloc] init];
         _webConfig.allowsInlineMediaPlayback = YES;
-        _webConfig.allowsPictureInPictureMediaPlayback = YES;
+        
+//        _webConfig.allowsPictureInPictureMediaPlayback = YES;
         
         // 通过 JS 与 webView 内容交互
         // 注入 JS 对象名称 senderModel，当 JS 通过 senderModel 来调用时，我们可以在WKScriptMessageHandler 代理中接收到
