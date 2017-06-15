@@ -1,0 +1,96 @@
+<html>
+    <!--描述网页信息-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>欢迎来到博爱之家</title>
+
+        <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+        <link rel="stylesheet" href="css/style.css">
+
+        <style>
+            *{
+                font-size: 40px;
+            }
+
+		.text-center {
+			margin: 0 ;
+			margin-top: 20px;
+			text-align: center;
+		}
+
+ 		/*body, div {
+ 			margin:0;
+ 			padding: 0;
+ 		}*/
+
+        .cls_btn {
+        		background-color: #ccff66;
+        		border: solid 1px #cc00ff;
+        	 	border-radius:5px;
+        	 	font-size: 1em;
+        	 	color: white
+        	}
+            </style>
+
+        <script>
+            function clear() {
+                document.getElementById('id_alert').innerHTML = ''
+                document.getElementById('id_insert').innerHTML = ''
+                document.getElementById('id_jump').innerHTML = ''
+            }
+
+            // OC调用JS的方法列表
+            function ba_insert(num,msg) {
+                //window.alert('这是我的手机号:' + num + ',' + msg + '!!')
+                document.getElementById('id_insert').innerHTML = '这是我的手机号:' + num + ',' + msg + '!'
+            }
+
+            // JS响应方法列表 BA_Alert BA_JumpVC BA_SendMsg
+            function btnClick1() {
+                window.webkit.messageHandlers.BA_Alert.postMessage(null)
+            }
+
+            function ba_JumpVC() {
+                window.webkit.messageHandlers.BA_JumpVC.postMessage(null)
+            }
+
+            function btnClick3() {
+                window.webkit.messageHandlers.BA_SendMsg.postMessage(['18566668888', '生命不息，折腾不止...'])
+            }
+
+        </script>
+
+    </head>
+
+    <!--网页具体内容-->
+    <body>
+        <br/>
+
+        <div>
+            <h1 class="text-center">欢迎来到博爱之家</h1>
+          	<h2 class='text-center'><em>生命不息，折腾不止...</em></h2>
+        </div>
+        <br/>
+
+        <div id="id_alert"></div>
+        <div>
+            <button class="cls_btn text-center" type="button" onclick="btnClick1()">JS 调用 OC 1【调用 OC alert，展示 JS 内容】</button>
+        </div>
+        <br/>
+
+        <div id="id_insert"></div>
+        <div>
+            <button class="cls_btn text-center" type="button" onclick="btnClick3()">OC 调用 JS 2【返回 JS 中的数据给 OC 接收处理！】</button>
+        </div>
+        <br/>
+
+        <div id="id_jump"></div>
+        <div>
+            <button class="cls_btn text-center" type="button" onclick="ba_JumpVC()">JS 调用 OC 3【OC 跳转页面】</button>
+        </div>
+        <br>
+
+
+
+    </body>
+</html>
