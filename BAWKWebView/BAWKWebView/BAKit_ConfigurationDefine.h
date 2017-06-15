@@ -180,10 +180,10 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 [self presentViewController:alert animated:YES completion:nil];
 
 
-//CG_INLINE UIColor *
-//BAKit_Color_RGBA(u_char r,u_char g, u_char b, u_char a) {
-//    return [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a];
-//}
+CG_INLINE UIColor *
+BAKit_Color_RGBA(u_char r,u_char g, u_char b, u_char a) {
+    return [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a];
+}
 
 CG_INLINE UIColor *
 BAKit_Color_RGB(u_char r,u_char g, u_char b) {

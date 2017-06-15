@@ -25,10 +25,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 [alert addAction:sureAction];\
 [self presentViewController:alert animated:YES completion:nil];
 
-CG_INLINE UIColor *
-BAKit_Color_RGBA(u_char r,u_char g, u_char b, u_char a) {
-    return [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a];
-}
+
 
 #define BAKit_Color_Translucent    [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:0.5f]
 #define BAKit_Color_White          [UIColor whiteColor]

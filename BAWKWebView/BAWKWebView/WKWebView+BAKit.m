@@ -64,6 +64,7 @@
 
     [self removeObserver:self forKeyPath:@"title"];
     [self removeObserver:self forKeyPath:@"estimatedProgress"];
+    [self removeObserver:self forKeyPath:@"URL"];
 }
 
 #pragma mark - 添加对WKWebView属性的监听

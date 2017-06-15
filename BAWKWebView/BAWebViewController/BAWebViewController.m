@@ -8,6 +8,7 @@
 
 #import "BAWebViewController.h"
 #import "BAKit_WebView.h"
+#import "BAAlertController.h"
 
 @interface BAWebViewController ()
 
