@@ -8,6 +8,7 @@
 
 #import "WKWebView+BAKit.h"
 #import "BAKit_ConfigurationDefine.h"
+#import "WKWebView+BAJavaScriptAlert.h"
 
 @implementation WKWebView (BAKit)
 
@@ -206,15 +207,30 @@
 }
 
 #pragma mark = WKNavigationDelegate
-#pragma mark 在发送请求之前，决定是否跳转，如果不添加这个，那么 wkwebview 跳转不了 AppStore 和 打电话
+#pragma mark 这个代理方法表示当客户端收到服务器的响应头，根据 response 相关信息，可以决定这次跳转是否可以继续进行。在发送请求之前，决定是否跳转，如果不添加这个，那么 wkwebview 跳转不了 AppStore 和 打电话
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-    NSString *hostname = navigationAction.request.URL.host.lowercaseString;
-    NSLog(@"%@",hostname);
+//    NSString *hostname = navigationAction.request.URL.host.lowercaseString;
+//    NSLog(@"%@",hostname);
     NSURL *url = navigationAction.request.URL;
+    NSString *url_string = url.absoluteString;
+    NSString *url_scheme = url.scheme;
+    NSString *url_query = url.query;
+    NSString *url_host = url.host;
     
-    UIApplication *application = [UIApplication sharedApplication];
+    NSLog(@"URL scheme:%@", url_scheme);
+    NSLog(@"URL scheme2:%@", self.ba_web_urlScheme);
+    NSLog(@"URL query: %@", url_query);
     
+    if ([url_scheme isEqualToString:self.ba_web_urlScheme])
+    {
+        if (self.ba_web_decidePolicyForNavigationActionBlock)
+        {
+            self.ba_web_decidePolicyForNavigationActionBlock(url);
+        }
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
+    }
     // APPStore
     if ([url.absoluteString containsString:@"itunes.apple.com"])
     {
@@ -225,17 +241,15 @@
     // 调用电话
     if ([url.scheme isEqualToString:@"tel"])
     {
-        if ([application canOpenURL:url])
+        if ([BAKit_SharedApplication canOpenURL:url])
         {
-            [application openURL:url];
+            [BAKit_SharedApplication openURL:url];
             decisionHandler(WKNavigationActionPolicyCancel);
             return;
         }
     }
     
     // 参数 WKNavigationAction 中有两个属性：sourceFrame 和 targetFrame，分别代表这个 action 的出处和目标，类型是 WKFrameInfo 。WKFrameInfo有一个 mainFrame 的属性，标记frame是在主frame里显示还是新开一个frame显示
-    
-    
     WKFrameInfo *frameInfo = navigationAction.targetFrame;
     BOOL isMainframe = [frameInfo isMainFrame];
     NSLog(@"isMainframe :%d", isMainframe);
@@ -249,18 +263,12 @@
             return;
         }
     }
-    else if ([[UIApplication sharedApplication] canOpenURL:url])
+    else if ([BAKit_SharedApplication canOpenURL:url])
     {
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
-    else if (self.ba_web_decidePolicyForNavigationActionBlock)
-    {
-        self.ba_web_decidePolicyForNavigationActionBlock(webView, navigationAction);
-        decisionHandler(WKNavigationActionPolicyCancel);
-        return;
-    }
-    
+
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
@@ -323,6 +331,12 @@
     {
         self.ba_web_didFailBlock(webView, navigation);
     }
+}
+
+#pragma mark - WKUIDelegate
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler
+{
+    BAKit_ShowAlertWithMsg(@"知道了");
 }
 
 #pragma mark - Public method
@@ -395,15 +409,29 @@
 - (void)ba_web_loadHTMLFileName:(NSString *)htmlName
 {
     /*! 一定要记得这一步，要不然本地的图片加载不出来 */
-    NSString *basePath = [[NSBundle mainBundle] bundlePath];
-    NSURL *baseURL = [NSURL fileURLWithPath:basePath];
+//    NSString *basePath = [[NSBundle mainBundle] bundlePath];
+//    NSURL *baseURL = [NSURL fileURLWithPath:basePath];
     
-    NSString *htmlPath = [[NSBundle mainBundle] pathForResource:htmlName
-                                                         ofType:@"html"];
-    NSString *HTMLString = [NSString stringWithContentsOfFile:htmlPath
-                                                     encoding:NSUTF8StringEncoding
-                                                        error:nil];
-    [self loadHTMLString:HTMLString baseURL:baseURL];
+//    NSString *htmlPath = [[NSBundle mainBundle] pathForResource:htmlName
+//                                                         ofType:@"html"];
+    NSString *htmlPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@.html", htmlName] ofType:nil];
+
+//    NSString *HTMLString = [NSString stringWithContentsOfFile:htmlPath
+//                                                     encoding:NSUTF8StringEncoding
+//                                                        error:nil];
+    if (htmlPath)
+    {
+        if (BAKit_IOS_VERSION >= 9.0)
+        {
+            NSURL *fileURL = [NSURL fileURLWithPath:htmlPath];
+            [self loadFileURL:fileURL allowingReadAccessToURL:fileURL];
+        } else {
+            NSURL *fileURL = [self ba_fileURLForBuggyWKWebView8:[NSURL fileURLWithPath:htmlPath]];
+            NSURLRequest *request = [NSURLRequest requestWithURL:fileURL];
+            [self loadRequest:request];
+        }
+    }
+    
     [self ba_web_addNoti];
 }
 
@@ -447,6 +475,26 @@
             [self.configuration.userContentController addScriptMessageHandler:self name:obj];
         }];
     }
+}
+
+//将文件copy到tmp目录
+- (NSURL *)ba_fileURLForBuggyWKWebView8:(NSURL *)fileURL
+{
+    NSError *error = nil;
+    if (!fileURL.fileURL || ![fileURL checkResourceIsReachableAndReturnError:&error]) {
+        return nil;
+    }
+    // Create "/temp/www" directory
+    NSFileManager *fileManager= [NSFileManager defaultManager];
+    NSURL *temDirURL = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:@"www"];
+    [fileManager createDirectoryAtURL:temDirURL withIntermediateDirectories:YES attributes:nil error:&error];
+    
+    NSURL *dstURL = [temDirURL URLByAppendingPathComponent:fileURL.lastPathComponent];
+    // Now copy given file to the temp directory
+    [fileManager removeItemAtURL:dstURL error:&error];
+    [fileManager copyItemAtURL:fileURL toURL:dstURL error:&error];
+    // Files in "/temp/www" load flawlesly :)
+    return dstURL;
 }
 
 #pragma mark - setter / getter
@@ -568,5 +616,16 @@
 {
     return BAKit_Objc_getObj;
 }
+
+- (void)setBa_web_urlScheme:(NSString *)ba_web_urlScheme
+{
+    BAKit_Objc_setObj(@selector(ba_web_urlScheme), ba_web_urlScheme);
+}
+
+- (NSString *)ba_web_urlScheme
+{
+    return BAKit_Objc_getObj;
+}
+
 
 @end

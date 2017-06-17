@@ -30,6 +30,7 @@
     [self.webView ba_web_loadHTMLFileName:htmlName];
 
     [self ba_JS_OC];
+    [self ba_OC_JS_2];
 }
 
 #pragma mark - JS_OC
@@ -38,7 +39,7 @@
     // 1、先注册ID
     NSArray *messageNameArray = @[@"BA_Alert", @"BA_JumpVC", @"BA_SendMsg"];
     [self.webView ba_web_addScriptMessageHandlerWithNameArray:messageNameArray];
-
+    
     // 2、JS 调用 OC 时 webview 会调用此 block
     BAKit_WeakSelf
     self.webView.ba_web_userContentControllerDidReceiveScriptMessageBlock = ^(WKUserContentController * _Nonnull userContentController, WKScriptMessage * _Nonnull message) {
@@ -62,6 +63,92 @@
             BAKit_ShowAlertWithMsg_ios8(msg);
         }
     };
+}
+
+#pragma mark - OC 拦截 JS URL 处理
+- (void)ba_OC_JS_2
+{
+    BAKit_WeakSelf
+    // 必须要先设定 要拦截的 urlScheme，然后再处理 回调
+    self.webView.ba_web_urlScheme = @"basharefunction";
+    self.webView.ba_web_decidePolicyForNavigationActionBlock = ^(NSURL *currentUrl) {
+    
+        BAKit_StrongSelf
+        // 判断 host 是否对应，然后做相应处理
+        if ([currentUrl.host isEqualToString:@"shareClick"])
+        {
+            // 拦截到 URL 中的分享 内容
+            [self ba_shareClickWithUrl:currentUrl];
+        }
+        else if ([currentUrl.host isEqualToString:@"getLocation"])
+        {
+            [self ba_getLocationWithUrl:currentUrl];
+        }
+    };
+}
+
+#pragma mark OC 拦截 JS URL 处理：1、拦截 JS 提供的分享内容，用 OC 方法处理
+- (void)ba_shareClickWithUrl:(NSURL *)url
+{
+    NSString *url_query = url.query;
+    NSArray *paramArray = [url_query componentsSeparatedByString:@"&"];
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (NSString *dict_key in paramArray)
+    {
+        NSArray *dataArray = [dict_key componentsSeparatedByString:@"="];
+        if (dataArray.count > 1)
+        {
+            NSString *decode_value = [dataArray[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [dict setObject:decode_value forKey:dataArray[0]];
+        }
+    }
+    NSLog(@"从H5端获取的参数字典：%@", dict);
+    
+    /*!
+     从H5端获取的参数字典：
+     {
+         content = "欢迎使用博爱分享2.1版本";
+         imagePath = "图片地址";
+         title = "博爱分享2.1版本";
+         url = "www.baidu.com";
+     }
+     */
+    
+    /*!
+     与后台进行交互  上传服务器  这里是测试demo  假设传回来的字典参数都上传服务器
+     */
+    NSString *msg = [NSString stringWithFormat:@"分享标题：%@，\n内容：%@，\n图片URL：%@，\nURL：%@", dict[@"title"], dict[@"content"], dict[@"imagePath"], dict[@"url"]];
+    BAKit_ShowAlertWithMsg_ios8(msg);
+}
+
+#pragma mark OC 拦截 JS URL 处理：2、拦截 JS 获取的定位信息，用 OC 方法处理
+- (void)ba_getLocationWithUrl:(NSURL *)url
+{
+    NSString *url_query = url.query;
+    NSArray *paramArray = [url_query componentsSeparatedByString:@"&"];
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (NSString *dict_key in paramArray)
+    {
+        NSArray *dataArray = [dict_key componentsSeparatedByString:@"="];
+        if (dataArray.count > 1)
+        {
+            NSString *decode_value = [dataArray[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [dict setObject:decode_value forKey:dataArray[0]];
+        }
+    }
+    NSLog(@"从H5端获取的参数字典：%@", dict);
+    
+    /*!
+     从H5端获取的参数字典：
+     {
+     latitude = "23.10486444538465";
+     longitude = "113.37970297389353";
+     }
+     */
+    NSString *msg = [NSString stringWithFormat:@"OC 拦截【从 JS 获取的当前定位】处理\n纬度：%@\n经度：%@", dict[@"latitude"], dict[@"longitude"]];
+    BAKit_ShowAlertWithMsg_ios8(msg);
 }
 
 #pragma mark - OC_JS

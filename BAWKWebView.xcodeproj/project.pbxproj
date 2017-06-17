@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4297C661EF51A49005DDC30 /* BAHome.html in Resources */ = {isa = PBXBuildFile; fileRef = C4297C621EF51A49005DDC30 /* BAHome.html */; };
+		C4297C671EF51A49005DDC30 /* BAHome2.html in Resources */ = {isa = PBXBuildFile; fileRef = C4297C631EF51A49005DDC30 /* BAHome2.html */; };
+		C4297C681EF51A49005DDC30 /* BAWebView.html in Resources */ = {isa = PBXBuildFile; fileRef = C4297C641EF51A49005DDC30 /* BAWebView.html */; };
+		C4297C691EF51A49005DDC30 /* jquery-1.7.2.min.js in Resources */ = {isa = PBXBuildFile; fileRef = C4297C651EF51A49005DDC30 /* jquery-1.7.2.min.js */; };
 		C4DB852E1EF2353400B6D9C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB852D1EF2353400B6D9C3 /* main.m */; };
 		C4DB85311EF2353400B6D9C3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB85301EF2353400B6D9C3 /* AppDelegate.m */; };
 		C4DB85391EF2353400B6D9C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4DB85381EF2353400B6D9C3 /* Assets.xcassets */; };
@@ -16,10 +20,6 @@
 		C4DB85561EF2356500B6D9C3 /* WKWebView+Post.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB85501EF2356500B6D9C3 /* WKWebView+Post.m */; };
 		C4DB85601EF2358C00B6D9C3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB85581EF2358C00B6D9C3 /* ViewController.m */; };
 		C4DB85611EF2358C00B6D9C3 /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB855A1EF2358C00B6D9C3 /* ViewController2.m */; };
-		C4DB85621EF2358C00B6D9C3 /* BAWebView.html in Resources */ = {isa = PBXBuildFile; fileRef = C4DB855B1EF2358C00B6D9C3 /* BAWebView.html */; };
-		C4DB85631EF2358C00B6D9C3 /* jquery-1.7.2.min.js in Resources */ = {isa = PBXBuildFile; fileRef = C4DB855C1EF2358C00B6D9C3 /* jquery-1.7.2.min.js */; };
-		C4DB85641EF2358C00B6D9C3 /* BAHome.html in Resources */ = {isa = PBXBuildFile; fileRef = C4DB855D1EF2358C00B6D9C3 /* BAHome.html */; };
-		C4DB85651EF2358C00B6D9C3 /* BAHome2.html in Resources */ = {isa = PBXBuildFile; fileRef = C4DB855E1EF2358C00B6D9C3 /* BAHome2.html */; };
 		C4DB85691EF235A800B6D9C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DB85671EF235A800B6D9C3 /* Main.storyboard */; };
 		C4DB85811EF2369900B6D9C3 /* NSMutableAttributedString+BAKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB85791EF2369900B6D9C3 /* NSMutableAttributedString+BAKit.m */; };
 		C4DB85821EF2369900B6D9C3 /* NSObject+BARunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB857B1EF2369900B6D9C3 /* NSObject+BARunTime.m */; };
@@ -29,6 +29,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C4297C621EF51A49005DDC30 /* BAHome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = BAHome.html; sourceTree = "<group>"; };
+		C4297C631EF51A49005DDC30 /* BAHome2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = BAHome2.html; sourceTree = "<group>"; };
+		C4297C641EF51A49005DDC30 /* BAWebView.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = BAWebView.html; sourceTree = "<group>"; };
+		C4297C651EF51A49005DDC30 /* jquery-1.7.2.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.7.2.min.js"; sourceTree = "<group>"; };
 		C4DB85291EF2353400B6D9C3 /* BAWKWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BAWKWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DB852D1EF2353400B6D9C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4DB852F1EF2353400B6D9C3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -48,10 +52,6 @@
 		C4DB85581EF2358C00B6D9C3 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C4DB85591EF2358C00B6D9C3 /* ViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController2.h; sourceTree = "<group>"; };
 		C4DB855A1EF2358C00B6D9C3 /* ViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController2.m; sourceTree = "<group>"; };
-		C4DB855B1EF2358C00B6D9C3 /* BAWebView.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = BAWebView.html; sourceTree = "<group>"; };
-		C4DB855C1EF2358C00B6D9C3 /* jquery-1.7.2.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.7.2.min.js"; sourceTree = "<group>"; };
-		C4DB855D1EF2358C00B6D9C3 /* BAHome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = BAHome.html; sourceTree = "<group>"; };
-		C4DB855E1EF2358C00B6D9C3 /* BAHome2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = BAHome2.html; sourceTree = "<group>"; };
 		C4DB85681EF235A800B6D9C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4DB85771EF2369900B6D9C3 /* BAAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAlertController.h; sourceTree = "<group>"; };
 		C4DB85781EF2369900B6D9C3 /* NSMutableAttributedString+BAKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+BAKit.h"; sourceTree = "<group>"; };
@@ -76,6 +76,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4297C611EF51A49005DDC30 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C4297C621EF51A49005DDC30 /* BAHome.html */,
+				C4297C631EF51A49005DDC30 /* BAHome2.html */,
+				C4297C641EF51A49005DDC30 /* BAWebView.html */,
+				C4297C651EF51A49005DDC30 /* jquery-1.7.2.min.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		C4DB85201EF2353400B6D9C3 = {
 			isa = PBXGroup;
 			children = (
@@ -103,10 +114,7 @@
 				C4DB85581EF2358C00B6D9C3 /* ViewController.m */,
 				C4DB85591EF2358C00B6D9C3 /* ViewController2.h */,
 				C4DB855A1EF2358C00B6D9C3 /* ViewController2.m */,
-				C4DB855B1EF2358C00B6D9C3 /* BAWebView.html */,
-				C4DB855C1EF2358C00B6D9C3 /* jquery-1.7.2.min.js */,
-				C4DB855D1EF2358C00B6D9C3 /* BAHome.html */,
-				C4DB855E1EF2358C00B6D9C3 /* BAHome2.html */,
+				C4297C611EF51A49005DDC30 /* Resources */,
 				C4DB85671EF235A800B6D9C3 /* Main.storyboard */,
 				C4DB85381EF2353400B6D9C3 /* Assets.xcassets */,
 				C4DB853A1EF2353400B6D9C3 /* LaunchScreen.storyboard */,
@@ -224,12 +232,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4DB853C1EF2353400B6D9C3 /* LaunchScreen.storyboard in Resources */,
-				C4DB85631EF2358C00B6D9C3 /* jquery-1.7.2.min.js in Resources */,
-				C4DB85641EF2358C00B6D9C3 /* BAHome.html in Resources */,
+				C4297C671EF51A49005DDC30 /* BAHome2.html in Resources */,
 				C4DB85691EF235A800B6D9C3 /* Main.storyboard in Resources */,
-				C4DB85621EF2358C00B6D9C3 /* BAWebView.html in Resources */,
+				C4297C661EF51A49005DDC30 /* BAHome.html in Resources */,
+				C4297C691EF51A49005DDC30 /* jquery-1.7.2.min.js in Resources */,
+				C4297C681EF51A49005DDC30 /* BAWebView.html in Resources */,
 				C4DB85391EF2353400B6D9C3 /* Assets.xcassets in Resources */,
-				C4DB85651EF2358C00B6D9C3 /* BAHome2.html in Resources */,
 				C4DB85841EF2369900B6D9C3 /* BAKit_WebView.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

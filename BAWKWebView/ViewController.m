@@ -86,7 +86,7 @@ static NSString * const kURL1 = @"https://www.baidu.com";
             NSString *htmlURlStr = [NSString stringWithFormat:@"%@<body style='background-color:#ffffff'>%@<br><div style=\"margin: 15px 15px;\">%@</div></body>", headStr, image1, contentStr];
             
             BAWebViewController *webVC = [BAWebViewController new];
-            webVC.title = @"企业概况";
+            webVC.title = @"博爱之家";
             [webVC ba_web_loadHTMLString:htmlURlStr];
             
             [self.navigationController pushViewController:webVC animated:YES];

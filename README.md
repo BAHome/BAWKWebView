@@ -12,6 +12,7 @@
 * 4、一个 block 搞定 title、progress、currentURL、当前网页的高度等等所需
 * 5、有博爱封装好的 BAWebViewController 可以直接使用，也可以参考自定义浏览器【参考demo】
 * 6、WKWebView 自定义 request post 数据到 JS（使用分类）
+* 7、WKWebView OC 拦截 JS URL 处理，详见demo
 
 ## 2、图片示例
 ![BAWKWebView](https://github.com/BAHome/BAWKWebView/blob/master/Images/BAWKWebView.gif)
@@ -26,7 +27,7 @@
   - pod search BAWKWebView
 * 2、文件夹拖入：下载demo，把 BAWKWebView 文件夹拖入项目即可，<br>
 * 3、导入头文件：<br>
-`  #import "BAWKWebView.h" `<br>
+`  #import "BAKit_WebView.h" `<br>
 * 4、项目源码地址：<br>
  OC 版 ：[https://github.com/BAHome/BAWKWebView](https://github.com/BAHome/BAWKWebView)<br>
 
@@ -53,6 +54,12 @@
  
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAWKWebView
+ 
+ 最新更新时间：2017-06-17 【倒叙】
+ 最新Version：【Version：1.0.2】
+ 更新内容：
+ 1.0.2.1、新增 OC 拦截 JS URL 相关数据，附详细demo
+ 1.0.2.1、优化代码结构
  
  最新更新时间：2017-06-15 【倒叙】
  最新Version：【Version：1.0.1】
@@ -114,7 +121,7 @@ typedef void (^BAKit_webView_didFinishNavigationBlock)(WKWebView *webView, WKNav
 typedef void (^BAKit_webView_didFailProvisionalNavigationBlock)(WKWebView *webView, WKNavigation *navigation);
 
 /**
- 获取 web 加载进度，判断是否正在加载
+ 获取 webview 当前的加载进度，判断是否正在加载
  
  @param isLoading 是否正在加载
  @param progress web 加载进度，范围：0.0f ~ 1.0f
@@ -122,7 +129,7 @@ typedef void (^BAKit_webView_didFailProvisionalNavigationBlock)(WKWebView *webVi
 typedef void (^BAKit_webView_isLoadingBlock)(BOOL isLoading, CGFloat progress);
 
 /**
- 获取 web 的 title
+ 获取 webview 当前的 title
  
  @param title title
  */
@@ -137,8 +144,18 @@ typedef void (^BAKit_webView_getTitleBlock)(NSString *title);
  */
 typedef void (^BAKit_webView_userContentControllerDidReceiveScriptMessageBlock)(WKUserContentController *userContentController, WKScriptMessage *message);
 
-typedef void (^BAKit_webView_decidePolicyForNavigationActionBlock)(WKWebView *webView,  WKNavigationAction *navigationAction);
+/**
+ 在发送请求之前，决定是否跳转，如果不添加这个，那么 wkwebview 跳转不了 AppStore 和 打电话，所谓拦截 URL 进行进一步处理，就在这里处理
 
+ @param currentUrl currentUrl
+ */
+typedef void (^BAKit_webView_decidePolicyForNavigationActionBlock)(NSURL *currentUrl);
+
+/**
+ 获取 webview 当前的 URL
+
+ @param currentUrl currentUrl
+ */
 typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
 
 
@@ -164,6 +181,10 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
  */
 @property (nonatomic, readonly) BOOL ba_web_canGoForward;
 
+/**
+ 需要拦截的 urlScheme，先设置此项，再 调用 ba_web_decidePolicyForNavigationActionBlock 来处理，详见 demo
+ */
+@property(nonatomic, strong) NSString *ba_web_urlScheme;
 
 @property(nonatomic, copy) BAKit_webView_didStartProvisionalNavigationBlock ba_web_didStartBlock;
 @property(nonatomic, copy) BAKit_webView_didCommitNavigationBlock ba_web_didCommitBlock;
@@ -174,7 +195,6 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
 @property(nonatomic, copy) BAKit_webView_userContentControllerDidReceiveScriptMessageBlock ba_web_userContentControllerDidReceiveScriptMessageBlock;
 @property(nonatomic, copy) BAKit_webView_decidePolicyForNavigationActionBlock ba_web_decidePolicyForNavigationActionBlock;
 @property(nonatomic, copy) BAKit_webView_getCurrentUrlBlock ba_web_getCurrentUrlBlock;
-
 
 #pragma mark - Public method
 
@@ -394,18 +414,67 @@ NS_ASSUME_NONNULL_END
     };
 }
     
-// 示例2：
+// 示例2：加载普通 URL
+BAWebViewController *webVC = [BAWebViewController new];
+            webVC.ba_web_progressTintColor = [UIColor cyanColor];
+            webVC.ba_web_progressTrackTintColor = [UIColor whiteColor];
+            
+            [webVC ba_web_loadURLString:kURL1];
+            
+            [self.navigationController pushViewController:webVC animated:YES];
+            
+// 示例3：加载自定义 request
+NSURL *url = [[NSBundle mainBundle] URLForResource:@"BAWebView" withExtension:@"html"];
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+
+            BAWebViewController *webVC = [BAWebViewController new];
+            webVC.title = self.dataArray[indexPath.row];
+
+            [webVC ba_web_loadRequest:request];
+            [self.navigationController pushViewController:webVC animated:YES];
+            
+// 示例4：加载本地 HTML 文件
+    BAWebViewController *webVC = [BAWebViewController new];
+            webVC.title = self.dataArray[indexPath.row];
+            [webVC ba_web_loadHTMLFileName:@"BAHome"];
+            
+            [self.navigationController pushViewController:webVC animated:YES];
+
+// 示例5：OC JS 互调
+#import "ViewController2.h"
+#import "BAKit_WebView.h"
+
+@interface ViewController2 ()
+
+@property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) UIButton *shareBtn;
+
+@end
+
+@implementation ViewController2
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = BAKit_Color_Gray_10;
+    self.shareBtn.hidden = NO;
+    self.webView.hidden = NO;
+    
     NSString *htmlName = @"BAHome2";
     [self.webView ba_web_loadHTMLFileName:htmlName];
 
-// 示例3：
+    [self ba_JS_OC];
+    [self ba_OC_JS_2];
+}
+
 #pragma mark - JS_OC
 - (void)ba_JS_OC
 {
     // 1、先注册ID
     NSArray *messageNameArray = @[@"BA_Alert", @"BA_JumpVC", @"BA_SendMsg"];
     [self.webView ba_web_addScriptMessageHandlerWithNameArray:messageNameArray];
-
+    
     // 2、JS 调用 OC 时 webview 会调用此 block
     BAKit_WeakSelf
     self.webView.ba_web_userContentControllerDidReceiveScriptMessageBlock = ^(WKUserContentController * _Nonnull userContentController, WKScriptMessage * _Nonnull message) {
@@ -429,6 +498,92 @@ NS_ASSUME_NONNULL_END
             BAKit_ShowAlertWithMsg_ios8(msg);
         }
     };
+}
+
+#pragma mark - OC 拦截 JS URL 处理
+- (void)ba_OC_JS_2
+{
+    BAKit_WeakSelf
+    // 必须要先设定 要拦截的 urlScheme，然后再处理 回调
+    self.webView.ba_web_urlScheme = @"basharefunction";
+    self.webView.ba_web_decidePolicyForNavigationActionBlock = ^(NSURL *currentUrl) {
+    
+        BAKit_StrongSelf
+        // 判断 host 是否对应，然后做相应处理
+        if ([currentUrl.host isEqualToString:@"shareClick"])
+        {
+            // 拦截到 URL 中的分享 内容
+            [self ba_shareClickWithUrl:currentUrl];
+        }
+        else if ([currentUrl.host isEqualToString:@"getLocation"])
+        {
+            [self ba_getLocationWithUrl:currentUrl];
+        }
+    };
+}
+
+#pragma mark OC 拦截 JS URL 处理：1、拦截 JS 提供的分享内容，用 OC 方法处理
+- (void)ba_shareClickWithUrl:(NSURL *)url
+{
+    NSString *url_query = url.query;
+    NSArray *paramArray = [url_query componentsSeparatedByString:@"&"];
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (NSString *dict_key in paramArray)
+    {
+        NSArray *dataArray = [dict_key componentsSeparatedByString:@"="];
+        if (dataArray.count > 1)
+        {
+            NSString *decode_value = [dataArray[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [dict setObject:decode_value forKey:dataArray[0]];
+        }
+    }
+    NSLog(@"从H5端获取的参数字典：%@", dict);
+    
+    /*!
+     从H5端获取的参数字典：
+     {
+         content = "欢迎使用博爱分享2.1版本";
+         imagePath = "图片地址";
+         title = "博爱分享2.1版本";
+         url = "www.baidu.com";
+     }
+     */
+    
+    /*!
+     与后台进行交互  上传服务器  这里是测试demo  假设传回来的字典参数都上传服务器
+     */
+    NSString *msg = [NSString stringWithFormat:@"分享标题：%@，\n内容：%@，\n图片URL：%@，\nURL：%@", dict[@"title"], dict[@"content"], dict[@"imagePath"], dict[@"url"]];
+    BAKit_ShowAlertWithMsg_ios8(msg);
+}
+
+#pragma mark OC 拦截 JS URL 处理：2、拦截 JS 获取的定位信息，用 OC 方法处理
+- (void)ba_getLocationWithUrl:(NSURL *)url
+{
+    NSString *url_query = url.query;
+    NSArray *paramArray = [url_query componentsSeparatedByString:@"&"];
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (NSString *dict_key in paramArray)
+    {
+        NSArray *dataArray = [dict_key componentsSeparatedByString:@"="];
+        if (dataArray.count > 1)
+        {
+            NSString *decode_value = [dataArray[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [dict setObject:decode_value forKey:dataArray[0]];
+        }
+    }
+    NSLog(@"从H5端获取的参数字典：%@", dict);
+    
+    /*!
+     从H5端获取的参数字典：
+     {
+     latitude = "23.10486444538465";
+     longitude = "113.37970297389353";
+     }
+     */
+    NSString *msg = [NSString stringWithFormat:@"OC 拦截【从 JS 获取的当前定位】处理\n纬度：%@\n经度：%@", dict[@"latitude"], dict[@"longitude"]];
+    BAKit_ShowAlertWithMsg_ios8(msg);
 }
 
 #pragma mark - OC_JS
@@ -474,6 +629,47 @@ NS_ASSUME_NONNULL_END
     }];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    _webView.frame = CGRectMake(0, 80, BAKit_SCREEN_WIDTH, 300);
+    _shareBtn.frame = CGRectMake(50, BAKit_SCREEN_HEIGHT - 100, 150, 40);
+
+}
+
+#pragma mark - setter / getter
+
+- (WKWebView *)webView
+{
+    if (!_webView)
+    {
+        _webView = [WKWebView new];
+        _webView.backgroundColor = BAKit_Color_Yellow;
+        
+        [self.view addSubview:_webView];
+    }
+    return _webView;
+}
+
+- (UIButton *)shareBtn
+{
+    if (!_shareBtn)
+    {
+        _shareBtn = [UIButton new];
+        [_shareBtn setTitle:@"OC 按钮调用 JS 方法" forState:UIControlStateNormal];
+        [_shareBtn setTitleColor:BAKit_Color_Black forState:UIControlStateNormal];
+        _shareBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        _shareBtn.tag = 1001;
+        [_shareBtn setBackgroundColor:BAKit_Color_Green];
+        [_shareBtn addTarget:self action:@selector(clickShareBtn:) forControlEvents:UIControlEventTouchUpInside];
+        _shareBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+        
+        [self.view addSubview:_shareBtn];
+    }
+    return _shareBtn;
+}
+
+@end
 
 其他示例可下载demo查看源码！
 ```
@@ -481,6 +677,12 @@ NS_ASSUME_NONNULL_END
 ## 5、更新记录：【倒叙】
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
+ 
+ 最新更新时间：2017-06-17 【倒叙】
+ 最新Version：【Version：1.0.2】
+ 更新内容：
+ 1.0.2.1、新增 OC 拦截 JS URL 相关数据，附详细demo
+ 1.0.2.1、优化代码结构
  
  最新更新时间：2017-06-15 【倒叙】
  最新Version：【Version：1.0.1】

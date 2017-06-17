@@ -40,10 +40,8 @@
     BAKit_WeakSelf;
     self.webView.ba_web_didStartBlock = ^(WKWebView *webView, WKNavigation *navigation) {
         
-        BAKit_StrongSelf
+//        BAKit_StrongSelf
         NSLog(@"开始加载网页");
-
-        
     };
     
     self.webView.ba_web_didFinishBlock = ^(WKWebView *webView, WKNavigation *navigation) {

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>欢迎来到博爱之家</title>
+        <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <style>
+        *{
+            font-size: 40px;
+        }
+
+        .text-center {
+            margin: 0 ;
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            text-align: center;
+        }
+
+        .cls_btn {
+            background-color: #ccff66;
+            border: solid 1px #cc00ff;
+            border-radius:20px;
+            font-size: 1em;
+            color: red
+        }
+        p {
+            margin: 0 ;
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
+
+
+    <body>
+        <br/>
+
+        <div>
+            <h1 class="text-center">欢迎来到博爱之家</h1>
+            <h2 class='text-center'><em>生命不息，折腾不止...</em></h2>
+        </div>
+        <br/>
+
+        <div id="id_alert"></div>
+        <div>
+            <button class="cls_btn text-center" type="button" onclick="btnClick1()">1、JS 调用 OC【调用 OC alert，展示 JS 内容】</button>
+        </div>
+        <br/>
+
+        <div id="id_insert"></div>
+        <div>
+            <button class="cls_btn text-center" type="button" onclick="btnClick3()">2、OC 调用 JS【返回 JS 中的数据给 OC 接收处理！】</button>
+        </div>
+        <br/>
+
+        <div id="id_jump"></div>
+        <div>
+            <button class="cls_btn text-center" type="button" onclick="ba_JumpVC()">3、JS 调用 OC【OC 跳转页面】</button>
+        </div>
+        <br>
+
+        <div id="id_share"></div>
+        <div>
+            <button class="cls_btn text-center" type="button" onclick="ba_shareClick()">4、JS 调用 OC，JS 分享链接【OC 拦截 JS URL】</button>
+        </div>
+        <br>
+
+        <p id="id_demo">点击下面按钮，获得您的地理坐标：</p>
+
+        <div id="id_location"></div>
+        <div>
+            <button class="cls_btn text-center" type="button" onclick="ba_getLocation()">5、JS 调用 OC，JS 获取当前定位【OC 拦截 JS URL】</button>
+        </div>
+        <br>
+
+    </body>
+
+    <script language="javascript">
+        function clear() {
+            document.getElementById('id_alert').innerHTML = ''
+            document.getElementById('id_insert').innerHTML = ''
+            document.getElementById('id_jump').innerHTML = ''
+            document.getElementById('id_share').innerHTML = ''
+            document.getElementById('id_location').innerHTML = ''
+        }
+
+        // OC调用JS的方法列表
+        function ba_insert(num,msg) {
+            //window.alert('这是我的手机号:' + num + ',' + msg + '!!')
+            document.getElementById('id_insert').innerHTML = '这是我的手机号:' + num + ',' + msg + '!'
+        }
+
+        // JS响应方法列表 BA_Alert BA_JumpVC BA_SendMsg
+        function btnClick1() {
+            window.webkit.messageHandlers.BA_Alert.postMessage(null)
+        }
+
+        function ba_JumpVC() {
+            window.webkit.messageHandlers.BA_JumpVC.postMessage(null)
+        }
+
+        function btnClick3() {
+            window.webkit.messageHandlers.BA_SendMsg.postMessage(['18566668888', '生命不息，折腾不止...'])
+        }
+
+        function loadBAURL(url) {
+            var iFrame;
+            iFrame = document.createElement("iframe");
+            iFrame.setAttribute("src", url);
+            iFrame.setAttribute("style", "display:none;");
+            iFrame.setAttribute("height", "0px");
+            iFrame.setAttribute("width", "0px");
+            iFrame.setAttribute("frameborder", "0");
+            document.body.appendChild(iFrame);
+            // 发起请求后这个 iFrame 就没用了，所以把它从 dom 上移除掉
+            iFrame.parentNode.removeChild(iFrame);
+            iFrame = null;
+        }
+
+        // 注意：URL scheme 必须全部小写英文字母，要不然无法识别，例如：BAShareFunction 会自动转换成小写 basharefunction，所以开始声明的时候，就直接把它设定成小写字母，还有，不能带下划线等特殊符号
+
+        function ba_shareClick() {
+            loadBAURL("bashareFunction://shareClick?title=博爱分享2.1版本&content=欢迎使用博爱分享2.1版本&url=www.baidu.com&imagePath=图片地址");
+        }
+
+        function ba_getLocation() {
+            ba_getLocation2();
+        }
+
+        // 用 JS 获取当前的经纬度，并添加一行显示出来
+        var x = document.getElementById("id_location");
+        function ba_getLocation2()
+        {
+            if (navigator.geolocation)
+            {
+                navigator.geolocation.watchPosition(showPosition, locationError);
+
+<!--                navigator.geolocation.getCurrentPosition(locationSuccess, locationError, options{-->
+<!--                    // 指示浏览器获取高精度的位置，默认为false-->
+<!--                    enableHighAccuracy: true,-->
+<!--                    // 指定获取地理位置的超时时间，默认不限时，单位为毫秒-->
+<!--                    timeout: 50,-->
+<!--                    // 最长有效期，在重复获取地理位置时，此参数指定多久再次获取位置。-->
+<!--                    maximumAge: 3000-->
+<!--                });-->
+            }
+            else
+            {
+            	alert("Your browser does not support Geolocation!");
+                document.getElementById('id_location').innerHTML="Your browser does not support Geolocation!";
+            }
+        }
+        
+        function showPosition (position)
+        {
+            console.log(position.coords.latitude+'\n,'+position.coords.longitude);
+
+            loadBAURL("bashareFunction://getLocation?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude);
+
+            document.getElementById('id_location').innerHTML="  Latitude: " + position.coords.latitude + "<br />  Longitude: " + position.coords.longitude;
+        }
+
+        function locationError (error){
+            switch(error.code) {
+                case error.TIMEOUT:
+                    showError("A timeout occured! Please try again!");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    showError('We can\'t detect your location. Sorry!');
+                    break;
+                case error.PERMISSION_DENIED:
+                    showError('Please allow geolocation access for this to work.');
+                    break;
+                case error.UNKNOWN_ERROR:
+                    showError('An unknown error occured!');
+                    break;
+            }
+        }
+
+    </script>
+
+</html>

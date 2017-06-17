@@ -43,7 +43,7 @@ typedef void (^BAKit_webView_didFinishNavigationBlock)(WKWebView *webView, WKNav
 typedef void (^BAKit_webView_didFailProvisionalNavigationBlock)(WKWebView *webView, WKNavigation *navigation);
 
 /**
- 获取 web 加载进度，判断是否正在加载
+ 获取 webview 当前的加载进度，判断是否正在加载
  
  @param isLoading 是否正在加载
  @param progress web 加载进度，范围：0.0f ~ 1.0f
@@ -51,7 +51,7 @@ typedef void (^BAKit_webView_didFailProvisionalNavigationBlock)(WKWebView *webVi
 typedef void (^BAKit_webView_isLoadingBlock)(BOOL isLoading, CGFloat progress);
 
 /**
- 获取 web 的 title
+ 获取 webview 当前的 title
  
  @param title title
  */
@@ -66,8 +66,18 @@ typedef void (^BAKit_webView_getTitleBlock)(NSString *title);
  */
 typedef void (^BAKit_webView_userContentControllerDidReceiveScriptMessageBlock)(WKUserContentController *userContentController, WKScriptMessage *message);
 
-typedef void (^BAKit_webView_decidePolicyForNavigationActionBlock)(WKWebView *webView,  WKNavigationAction *navigationAction);
+/**
+ 在发送请求之前，决定是否跳转，如果不添加这个，那么 wkwebview 跳转不了 AppStore 和 打电话，所谓拦截 URL 进行进一步处理，就在这里处理
 
+ @param currentUrl currentUrl
+ */
+typedef void (^BAKit_webView_decidePolicyForNavigationActionBlock)(NSURL *currentUrl);
+
+/**
+ 获取 webview 当前的 URL
+
+ @param currentUrl currentUrl
+ */
 typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
 
 
@@ -93,6 +103,10 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
  */
 @property (nonatomic, readonly) BOOL ba_web_canGoForward;
 
+/**
+ 需要拦截的 urlScheme，先设置此项，再 调用 ba_web_decidePolicyForNavigationActionBlock 来处理，详见 demo
+ */
+@property(nonatomic, strong) NSString *ba_web_urlScheme;
 
 @property(nonatomic, copy) BAKit_webView_didStartProvisionalNavigationBlock ba_web_didStartBlock;
 @property(nonatomic, copy) BAKit_webView_didCommitNavigationBlock ba_web_didCommitBlock;
@@ -103,7 +117,6 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
 @property(nonatomic, copy) BAKit_webView_userContentControllerDidReceiveScriptMessageBlock ba_web_userContentControllerDidReceiveScriptMessageBlock;
 @property(nonatomic, copy) BAKit_webView_decidePolicyForNavigationActionBlock ba_web_decidePolicyForNavigationActionBlock;
 @property(nonatomic, copy) BAKit_webView_getCurrentUrlBlock ba_web_getCurrentUrlBlock;
-
 
 #pragma mark - Public method
 
