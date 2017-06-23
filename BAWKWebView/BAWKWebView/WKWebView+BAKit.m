@@ -13,8 +13,9 @@
 @implementation WKWebView (BAKit)
 
 #pragma mark - hook
+
 /**
- 添加 WKWebView 的代理，注意：一般不用添加，特殊情况下（代理 block 不走）可以在初始化的时候，用此方法添加代理，例如：
+ 添加 WKWebView 的代理，注意：用此方法添加代理，例如：
  BAKit_WeakSelf
  [self.webView ba_web_initWithDelegate:weak_self.webView uIDelegate:weak_self.webView];
  
@@ -30,29 +31,29 @@
     [self ba_web_addNoti];
 }
 
-- (instancetype)ba_web_init
-{
-    [self ba_web_init];
-    
-    self.navigationDelegate = self;
-    self.UIDelegate = self;
-    
-    [self ba_web_addNoti];
-
-    return self;
-}
-
-- (instancetype)ba_web_initWithFrame
-{
-    [self ba_web_initWithFrame];
-    
-    self.navigationDelegate = self;
-    self.UIDelegate = self;
-    
-    [self ba_web_addNoti];
-    
-    return self;
-}
+//- (instancetype)ba_web_init
+//{
+//    [self ba_web_init];
+//    
+//    self.navigationDelegate = self;
+//    self.UIDelegate = self;
+//    
+//    [self ba_web_addNoti];
+//
+//    return self;
+//}
+//
+//- (instancetype)ba_web_initWithFrame
+//{
+//    [self ba_web_initWithFrame];
+//    
+//    self.navigationDelegate = self;
+//    self.UIDelegate = self;
+//    
+//    [self ba_web_addNoti];
+//    
+//    return self;
+//}
 
 - (void)ba_web_dealloc
 {
@@ -378,7 +379,7 @@
 - (void)ba_web_loadRequest:(NSURLRequest *)request
 {
     [self loadRequest:request];
-    [self ba_web_addNoti];
+//    [self ba_web_addNoti];
 }
 
 /**
@@ -432,7 +433,7 @@
         }
     }
     
-    [self ba_web_addNoti];
+//    [self ba_web_addNoti];
 }
 
 /**
@@ -447,7 +448,7 @@
     NSURL *baseURL = [NSURL fileURLWithPath:basePath];
     
     [self loadHTMLString:htmlString baseURL:baseURL];
-    [self ba_web_addNoti];
+//    [self ba_web_addNoti];
 }
 
 /**
@@ -501,8 +502,8 @@
 
 + (void)load
 {
-    BAKit_Objc_exchangeMethodAToB(NSSelectorFromString(@"init"), @selector(ba_web_init));
-    BAKit_Objc_exchangeMethodAToB(NSSelectorFromString(@"initWithFrame"), @selector(ba_web_initWithFrame));
+//    BAKit_Objc_exchangeMethodAToB(NSSelectorFromString(@"init"), @selector(ba_web_init));
+//    BAKit_Objc_exchangeMethodAToB(NSSelectorFromString(@"initWithFrame"), @selector(ba_web_initWithFrame));
     BAKit_Objc_exchangeMethodAToB(NSSelectorFromString(@"dealloc"),
                                   @selector(ba_web_dealloc));
 }

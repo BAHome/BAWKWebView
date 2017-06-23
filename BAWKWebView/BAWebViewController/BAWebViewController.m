@@ -305,9 +305,9 @@
     if (!_webView)
     {
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:self.webConfig];
-        //  添加 WKWebView 的代理，注意：一般不用添加，特殊情况下（代理 block 不走）可以在初始化的时候，用此方法添加代理
-//        BAKit_WeakSelf
-//        [self.webView ba_web_initWithDelegate:weak_self.webView uIDelegate:weak_self.webView];
+        //  添加 WKWebView 的代理，注意：用此方法添加代理
+        BAKit_WeakSelf
+        [self.webView ba_web_initWithDelegate:weak_self.webView uIDelegate:weak_self.webView];
         
         self.webView.multipleTouchEnabled = YES;
         self.webView.autoresizesSubviews = YES;
@@ -357,7 +357,7 @@
     {
         _progressView = [UIProgressView new];
         _progressView.tintColor = BAKit_Color_Green;
-        _progressView.trackTintColor = BAKit_Color_Gray_8;
+        _progressView.trackTintColor = BAKit_Color_Gray_8_pod;
         
         self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
 

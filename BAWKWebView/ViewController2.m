@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = BAKit_Color_Gray_10;
+    self.view.backgroundColor = BAKit_Color_Gray_10_pod;
     self.shareBtn.hidden = NO;
     self.webView.hidden = NO;
     
@@ -52,7 +52,7 @@
         else if ([message.name isEqualToString:messageNameArray[1]])
         {
             UIViewController *vc = [UIViewController new];
-            vc.view.backgroundColor = BAKit_Color_Green;
+            vc.view.backgroundColor = BAKit_Color_Green_pod;
             vc.title = @"这里是 JS 按钮跳转的 VC";
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -209,7 +209,11 @@
     if (!_webView)
     {
         _webView = [WKWebView new];
-        _webView.backgroundColor = BAKit_Color_Yellow;
+        //  添加 WKWebView 的代理，注意：用此方法添加代理
+        BAKit_WeakSelf
+        [self.webView ba_web_initWithDelegate:weak_self.webView uIDelegate:weak_self.webView];
+        
+        _webView.backgroundColor = BAKit_Color_Yellow_pod;
         
         [self.view addSubview:_webView];
     }
@@ -222,10 +226,10 @@
     {
         _shareBtn = [UIButton new];
         [_shareBtn setTitle:@"OC 按钮调用 JS 方法" forState:UIControlStateNormal];
-        [_shareBtn setTitleColor:BAKit_Color_Black forState:UIControlStateNormal];
+        [_shareBtn setTitleColor:BAKit_Color_Black_pod forState:UIControlStateNormal];
         _shareBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         _shareBtn.tag = 1001;
-        [_shareBtn setBackgroundColor:BAKit_Color_Green];
+        [_shareBtn setBackgroundColor:BAKit_Color_Green_pod];
         [_shareBtn addTarget:self action:@selector(clickShareBtn:) forControlEvents:UIControlEventTouchUpInside];
         _shareBtn.titleLabel.textAlignment = NSTextAlignmentRight;
         

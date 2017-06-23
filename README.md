@@ -56,6 +56,12 @@
  OC 版 ：https://github.com/BAHome/BAWKWebView
  
  最新更新时间：2017-06-23 【倒叙】
+ 最新Version：【Version：1.0.4】
+ 更新内容：
+ 1.0.4.1、优化部分宏定义
+ 1.0.4.2、修复已知 bug（注意：代理方式必须手动添加，详见 demo） （感谢群里 @唐海洋 同学提出的 需求！）<br>
+ 
+ 最新更新时间：2017-06-23 【倒叙】
  最新Version：【Version：1.0.3】
  更新内容：
  1.0.3.1、优化部分宏定义
@@ -204,7 +210,7 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
 #pragma mark - Public method
 
 /**
- 添加 WKWebView 的代理，注意：一般不用添加，特殊情况下（代理 block 不走）可以在初始化的时候，用此方法添加代理，例如：        
+ 添加 WKWebView 的代理，注意：用此方法添加代理，例如：
  BAKit_WeakSelf
  [self.webView ba_web_initWithDelegate:weak_self.webView uIDelegate:weak_self.webView];
 
@@ -213,6 +219,7 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
  */
 - (void)ba_web_initWithDelegate:(id<WKNavigationDelegate>)navigationDelegate
                      uIDelegate:(id<WKUIDelegate>)uIDelegate;
+
 
 /**
  *  返回上一级页面
@@ -649,6 +656,10 @@ NSURL *url = [[NSBundle mainBundle] URLForResource:@"BAWebView" withExtension:@"
     if (!_webView)
     {
         _webView = [WKWebView new];
+         //  添加 WKWebView 的代理，注意：用此方法添加代理
+        BAKit_WeakSelf
+        [self.webView ba_web_initWithDelegate:weak_self.webView uIDelegate:weak_self.webView];
+        
         _webView.backgroundColor = BAKit_Color_Yellow;
         
         [self.view addSubview:_webView];
@@ -682,6 +693,12 @@ NSURL *url = [[NSBundle mainBundle] URLForResource:@"BAWebView" withExtension:@"
 ## 5、更新记录：【倒叙】
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
+ 
+ 最新更新时间：2017-06-23 【倒叙】
+ 最新Version：【Version：1.0.4】
+ 更新内容：
+ 1.0.4.1、优化部分宏定义
+ 1.0.4.2、修复已知 bug（注意：代理方式必须手动添加，详见 demo） （感谢群里 @唐海洋 同学提出的 需求！）<br>
  
  最新更新时间：2017-06-23 【倒叙】
  最新Version：【Version：1.0.3】

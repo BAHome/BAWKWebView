@@ -35,7 +35,7 @@ static NSString * const kURL1 = @"https://www.baidu.com";
 - (void)setupUI
 {
     self.title = @"BAWKWebView";
-    self.view.backgroundColor = BAKit_Color_White;
+    self.view.backgroundColor = BAKit_Color_White_pod;
     
 }
 
@@ -151,7 +151,7 @@ static NSString * const kURL1 = @"https://www.baidu.com";
     if (!_tableView)
     {
         _tableView = [[UITableView alloc] init];
-        self.tableView.backgroundColor = BAKit_Color_Gray_11;
+        self.tableView.backgroundColor = BAKit_Color_Gray_11_pod;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         

@@ -217,45 +217,45 @@ BAKit_Color_RandomRGBA_pod(){
 }
 
 
-#define BAKit_Color_Translucent    [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:0.5f]
-#define BAKit_Color_White          [UIColor whiteColor]
-#define BAKit_Color_Clear          [UIColor clearColor]
-#define BAKit_Color_Black          [UIColor blackColor]
-#define BAKit_Color_White          [UIColor whiteColor]
-#define BAKit_Color_Red            [UIColor redColor]
-#define BAKit_Color_Green          [UIColor greenColor]
-#define BAKit_Color_Orange         [UIColor orangeColor]
-#define BAKit_Color_Yellow         [UIColor yellowColor]
+#define BAKit_Color_Translucent_pod    [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:0.5f]
+#define BAKit_Color_White_pod          [UIColor whiteColor]
+#define BAKit_Color_Clear_pod          [UIColor clearColor]
+#define BAKit_Color_Black_pod          [UIColor blackColor]
+#define BAKit_Color_White_pod          [UIColor whiteColor]
+#define BAKit_Color_Red_pod            [UIColor redColor]
+#define BAKit_Color_Green_pod          [UIColor greenColor]
+#define BAKit_Color_Orange_pod         [UIColor orangeColor]
+#define BAKit_Color_Yellow_pod         [UIColor yellowColor]
 
 
 /*! 灰色 */
-#define BAKit_Color_Gray_1  BAKit_Color_RGB_pod(53, 60, 70);
-#define BAKit_Color_Gray_2  BAKit_Color_RGB_pod(73, 80, 90);
-#define BAKit_Color_Gray_3  BAKit_Color_RGB_pod(93, 100, 110);
-#define BAKit_Color_Gray_4  BAKit_Color_RGB_pod(113, 120, 130);
-#define BAKit_Color_Gray_5  BAKit_Color_RGB_pod(133, 140, 150);
-#define BAKit_Color_Gray_6  BAKit_Color_RGB_pod(153, 160, 170);
-#define BAKit_Color_Gray_7  BAKit_Color_RGB_pod(173, 180, 190);
-#define BAKit_Color_Gray_8  BAKit_Color_RGB_pod(196, 200, 208);
-#define BAKit_Color_Gray_9  BAKit_Color_RGB_pod(216, 220, 228);
-#define BAKit_Color_Gray_10 BAKit_Color_RGB_pod(240, 240, 240);
-#define BAKit_Color_Gray_11 BAKit_Color_RGB_pod(248, 248, 248);
+#define BAKit_Color_Gray_1_pod  BAKit_Color_RGB_pod(53, 60, 70)
+#define BAKit_Color_Gray_2_pod  BAKit_Color_RGB_pod(73, 80, 90)
+#define BAKit_Color_Gray_3_pod  BAKit_Color_RGB_pod(93, 100, 110)
+#define BAKit_Color_Gray_4_pod  BAKit_Color_RGB_pod(113, 120, 130)
+#define BAKit_Color_Gray_5_pod  BAKit_Color_RGB_pod(133, 140, 150)
+#define BAKit_Color_Gray_6_pod  BAKit_Color_RGB_pod(153, 160, 170)
+#define BAKit_Color_Gray_7_pod  BAKit_Color_RGB_pod(173, 180, 190)
+#define BAKit_Color_Gray_8_pod  BAKit_Color_RGB_pod(196, 200, 208)
+#define BAKit_Color_Gray_9_pod  BAKit_Color_RGB_pod(216, 220, 228)
+#define BAKit_Color_Gray_10_pod BAKit_Color_RGB_pod(240, 240, 240)
+#define BAKit_Color_Gray_11_pod BAKit_Color_RGB_pod(248, 248, 248)
 
 #pragma mark - Margin
-#define BAKit_Margin_1       BAKit_Flat_pod(1)
-#define BAKit_Margin_2       BAKit_Flat_pod(2)
-#define BAKit_Margin_5       BAKit_Flat_pod(5)
-#define BAKit_Margin_10      BAKit_Flat_pod(10)
-#define BAKit_Margin_15      BAKit_Flat_pod(15)
-#define BAKit_Margin_20      BAKit_Flat_pod(20)
-#define BAKit_Margin_25      BAKit_Flat_pod(25)
-#define BAKit_Margin_30      BAKit_Flat_pod(30)
-#define BAKit_Margin_35      BAKit_Flat_pod(35)
-#define BAKit_Margin_40      BAKit_Flat_pod(40)
-#define BAKit_Margin_44      BAKit_Flat_pod(44)
-#define BAKit_Margin_50      BAKit_Flat_pod(50)
-#define BAKit_Margin_100     BAKit_Flat_pod(100)
-#define BAKit_Margin_150     BAKit_Flat_pod(150)
+#define BAKit_Margin_1_pod       BAKit_Flat_pod(1)
+#define BAKit_Margin_2_pod       BAKit_Flat_pod(2)
+#define BAKit_Margin_5_pod       BAKit_Flat_pod(5)
+#define BAKit_Margin_10_pod      BAKit_Flat_pod(10)
+#define BAKit_Margin_15_pod      BAKit_Flat_pod(15)
+#define BAKit_Margin_20_pod      BAKit_Flat_pod(20)
+#define BAKit_Margin_25_pod      BAKit_Flat_pod(25)
+#define BAKit_Margin_30_pod      BAKit_Flat_pod(30)
+#define BAKit_Margin_35_pod      BAKit_Flat_pod(35)
+#define BAKit_Margin_40_pod      BAKit_Flat_pod(40)
+#define BAKit_Margin_44_pod      BAKit_Flat_pod(44)
+#define BAKit_Margin_50_pod      BAKit_Flat_pod(50)
+#define BAKit_Margin_100_pod     BAKit_Flat_pod(100)
+#define BAKit_Margin_150_pod     BAKit_Flat_pod(150)
 
 
 #define BAKit_ImageName(imageName) [UIImage imageNamed:imageName]
