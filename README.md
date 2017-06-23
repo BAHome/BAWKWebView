@@ -56,15 +56,10 @@
  OC 版 ：https://github.com/BAHome/BAWKWebView
  
  最新更新时间：2017-06-23 【倒叙】
- 最新Version：【Version：1.0.4】
- 更新内容：
- 1.0.4.1、优化部分宏定义
- 1.0.4.2、修复已知 bug（注意：代理方式必须手动添加，详见 demo） （感谢群里 @唐海洋 同学提出的 需求！）<br>
- 
- 最新更新时间：2017-06-23 【倒叙】
  最新Version：【Version：1.0.3】
  更新内容：
  1.0.3.1、优化部分宏定义
+ 1.0.3.2、修复已知 bug（注意：代理方式必须手动添加，详见 demo） （感谢群里 @唐海洋 同学提出的 需求！）<br>
 
  最新更新时间：2017-06-17 【倒叙】
  最新Version：【Version：1.0.2】
@@ -695,15 +690,10 @@ NSURL *url = [[NSBundle mainBundle] URLForResource:@"BAWebView" withExtension:@"
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
  
  最新更新时间：2017-06-23 【倒叙】
- 最新Version：【Version：1.0.4】
- 更新内容：
- 1.0.4.1、优化部分宏定义
- 1.0.4.2、修复已知 bug（注意：代理方式必须手动添加，详见 demo） （感谢群里 @唐海洋 同学提出的 需求！）<br>
- 
- 最新更新时间：2017-06-23 【倒叙】
  最新Version：【Version：1.0.3】
  更新内容：
  1.0.3.1、优化部分宏定义
+ 1.0.3.2、修复已知 bug（注意：代理方式必须手动添加，详见 demo） （感谢群里 @唐海洋 同学提出的 需求！）<br>
 
  最新更新时间：2017-06-17 【倒叙】<br>
  最新Version：【Version：1.0.2】<br>
@@ -727,11 +717,12 @@ NSURL *url = [[NSBundle mainBundle] URLForResource:@"BAWebView" withExtension:@"
  1.0.0.6、有博爱封装好的 BAWebViewController 可以直接使用，也可以参考自定义浏览器【参考demo】<br>
  1.0.0.7、WKWebView 自定义 request post 数据到 JS（使用分类）<br>
  
-
 ## 6、bug 反馈 和 联系方式
 > 1、开发中遇到 bug，希望小伙伴儿们能够及时反馈与我们 BAHome 团队，我们必定会认真对待每一个问题！ <br>
 
-> 2、联系方式 <br> 
+> 2、以后提需求和 bug 的同学，记得把 git 或者博客链接给我们，我直接超链到你们那里！希望大家积极参与测试！<br> 
+
+> 3、联系方式 <br> 
 QQ群：479663605  【注意：此群为 2 元 付费群，介意的小伙伴儿勿扰！】<br> 
 博爱QQ：137361770 <br> 
 博爱微博：[![](https://img.shields.io/badge/微博-博爱1616-red.svg)](http://weibo.com/538298123) <br> 
