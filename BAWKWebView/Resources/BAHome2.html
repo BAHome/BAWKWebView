@@ -137,9 +137,7 @@
         {
             if (navigator.geolocation)
             {
-            navigator.geolocation.getCurrentPosition(showPosition, locationError);
-
-<!--                navigator.geolocation.watchPosition(showPosition, locationError);-->
+                navigator.geolocation.watchPosition(showPosition, locationError);
 
 <!--                navigator.geolocation.getCurrentPosition(locationSuccess, locationError, options{-->
 <!--                    // 指示浏览器获取高精度的位置，默认为false-->
