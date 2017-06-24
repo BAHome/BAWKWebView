@@ -31,7 +31,7 @@
 
 - (void)setupUI
 {
-    self.view.backgroundColor = BAKit_Color_White;
+    self.view.backgroundColor = BAKit_Color_White_pod;
     self.webView.hidden = NO;
     
     [self configBackItem];
@@ -202,7 +202,7 @@
 {
     UIButton *colseBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
     [colseBtn setTitle:@"关闭" forState:UIControlStateNormal];
-    [colseBtn setTitleColor:BAKit_Color_Black forState:UIControlStateNormal];
+    [colseBtn setTitleColor:BAKit_Color_Black_pod forState:UIControlStateNormal];
     [colseBtn addTarget:self action:@selector(colseBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [colseBtn sizeToFit];
     
@@ -236,7 +236,7 @@
     BAKit_WeakSelf
     
     NSArray *buttonTitleArray = @[@"safari打开", @"复制链接", @"分享", @"刷新"];
-    NSArray *buttonTitleColorArray = @[BAKit_Color_Red, BAKit_Color_Green, BAKit_Color_Yellow, BAKit_Color_Orange];
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod, BAKit_Color_Yellow_pod, BAKit_Color_Orange_pod];
     
     [UIAlertController ba_actionSheetShowInViewController:self title:@"更多" message:nil buttonTitleArray:buttonTitleArray buttonTitleColorArray:buttonTitleColorArray popoverPresentationControllerBlock:^(UIPopoverPresentationController * _Nonnull popover) {
         
@@ -356,7 +356,7 @@
     if (!_progressView)
     {
         _progressView = [UIProgressView new];
-        _progressView.tintColor = BAKit_Color_Green;
+        _progressView.tintColor = BAKit_Color_Green_pod;
         _progressView.trackTintColor = BAKit_Color_Gray_8_pod;
         
         self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
@@ -384,6 +384,15 @@
 {
     [self.webView removeFromSuperview];
     [self.progressView removeFromSuperview];
+    self.webView = nil;
+    self.webConfig = nil;
+    self.progressView = nil;
+    self.ba_web_currentUrl = nil;
+}
+
+- (BOOL)willDealloc
+{
+    return NO;
 }
 
 @end

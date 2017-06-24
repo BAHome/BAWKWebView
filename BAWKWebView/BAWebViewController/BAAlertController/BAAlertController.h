@@ -13,32 +13,6 @@
 #import "NSObject+BARunTime.h"
 #import "NSMutableAttributedString+BAKit.h"
 
-#pragma mark - NotiCenter
-#define BAKit_NotiCenter [NSNotificationCenter defaultCenter]
-
-#pragma mark - 简单警告框
-/*! view 用 BAKit_ShowAlertWithMsg */
-#define BAKit_ShowAlertWithMsg(msg) [[[UIAlertView alloc] initWithTitle:@"温馨提示" message:(msg) delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil] show];
-/*! VC 用 BAKit_ShowAlertWithMsg */
-#define BAKit_ShowAlertWithMsg_ios8(msg) UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:msg preferredStyle:UIAlertControllerStyleAlert];\
-UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAlertActionStyleDefault handler:nil];\
-[alert addAction:sureAction];\
-[self presentViewController:alert animated:YES completion:nil];
-
-
-
-#define BAKit_Color_Translucent    [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:0.5f]
-#define BAKit_Color_White          [UIColor whiteColor]
-#define BAKit_Color_Clear          [UIColor clearColor]
-#define BAKit_Color_Black          [UIColor blackColor]
-#define BAKit_Color_Red            [UIColor redColor]
-#define BAKit_Color_Green          [UIColor greenColor]
-#define BAKit_Color_Yellow         [UIColor yellowColor]
-#define BAKit_Color_Orange         [UIColor orangeColor]
-
-#define BAKit_Color_gray11         BAKit_Color_RGBA(248, 248, 248, 1.0)
-
-
 /*!
  *********************************************************************************
  ************************************ 更新说明 ************************************
@@ -49,6 +23,11 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
  
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAAlertController
+ 
+ 最新更新时间：2017-06-24 【倒叙】<br>
+ 最新Version：【Version：1.0.1】<br>
+ 更新内容：<br>
+ 1.0.0.1、更换方法名，原：ba_alert2ShowInViewController 替换为：ba_alertTextFieldShowInViewController<br>
  
  最新更新时间：2017-06-05 【倒叙】
  最新Version：【Version：1.0.0】

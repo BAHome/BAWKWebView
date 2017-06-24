@@ -11,6 +11,10 @@
 		C4297C671EF51A49005DDC30 /* BAHome2.html in Resources */ = {isa = PBXBuildFile; fileRef = C4297C631EF51A49005DDC30 /* BAHome2.html */; };
 		C4297C681EF51A49005DDC30 /* BAWebView.html in Resources */ = {isa = PBXBuildFile; fileRef = C4297C641EF51A49005DDC30 /* BAWebView.html */; };
 		C4297C691EF51A49005DDC30 /* jquery-1.7.2.min.js in Resources */ = {isa = PBXBuildFile; fileRef = C4297C651EF51A49005DDC30 /* jquery-1.7.2.min.js */; };
+		C4738C6E1EFE4A4C00608E17 /* BAWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4738C6D1EFE4A4C00608E17 /* BAWebViewController.m */; };
+		C4738C781EFE4AA900608E17 /* NSMutableAttributedString+BAKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C4738C731EFE4AA900608E17 /* NSMutableAttributedString+BAKit.m */; };
+		C4738C791EFE4AA900608E17 /* NSObject+BARunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C4738C751EFE4AA900608E17 /* NSObject+BARunTime.m */; };
+		C4738C7A1EFE4AA900608E17 /* UIAlertController+BAKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C4738C771EFE4AA900608E17 /* UIAlertController+BAKit.m */; };
 		C4DB852E1EF2353400B6D9C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB852D1EF2353400B6D9C3 /* main.m */; };
 		C4DB85311EF2353400B6D9C3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB85301EF2353400B6D9C3 /* AppDelegate.m */; };
 		C4DB85391EF2353400B6D9C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4DB85381EF2353400B6D9C3 /* Assets.xcassets */; };
@@ -21,11 +25,7 @@
 		C4DB85601EF2358C00B6D9C3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB85581EF2358C00B6D9C3 /* ViewController.m */; };
 		C4DB85611EF2358C00B6D9C3 /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB855A1EF2358C00B6D9C3 /* ViewController2.m */; };
 		C4DB85691EF235A800B6D9C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DB85671EF235A800B6D9C3 /* Main.storyboard */; };
-		C4DB85811EF2369900B6D9C3 /* NSMutableAttributedString+BAKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB85791EF2369900B6D9C3 /* NSMutableAttributedString+BAKit.m */; };
-		C4DB85821EF2369900B6D9C3 /* NSObject+BARunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB857B1EF2369900B6D9C3 /* NSObject+BARunTime.m */; };
-		C4DB85831EF2369900B6D9C3 /* UIAlertController+BAKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB857D1EF2369900B6D9C3 /* UIAlertController+BAKit.m */; };
 		C4DB85841EF2369900B6D9C3 /* BAKit_WebView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C4DB857E1EF2369900B6D9C3 /* BAKit_WebView.bundle */; };
-		C4DB85851EF2369900B6D9C3 /* BAWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB85801EF2369900B6D9C3 /* BAWebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +33,16 @@
 		C4297C631EF51A49005DDC30 /* BAHome2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = BAHome2.html; sourceTree = "<group>"; };
 		C4297C641EF51A49005DDC30 /* BAWebView.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = BAWebView.html; sourceTree = "<group>"; };
 		C4297C651EF51A49005DDC30 /* jquery-1.7.2.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.7.2.min.js"; sourceTree = "<group>"; };
+		C4738C6C1EFE4A4C00608E17 /* BAWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAWebViewController.h; sourceTree = "<group>"; };
+		C4738C6D1EFE4A4C00608E17 /* BAWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAWebViewController.m; sourceTree = "<group>"; };
+		C4738C701EFE4AA900608E17 /* BAAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAlertController.h; sourceTree = "<group>"; };
+		C4738C711EFE4AA900608E17 /* BAKit_ConfigurationDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAKit_ConfigurationDefine.h; sourceTree = "<group>"; };
+		C4738C721EFE4AA900608E17 /* NSMutableAttributedString+BAKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+BAKit.h"; sourceTree = "<group>"; };
+		C4738C731EFE4AA900608E17 /* NSMutableAttributedString+BAKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+BAKit.m"; sourceTree = "<group>"; };
+		C4738C741EFE4AA900608E17 /* NSObject+BARunTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BARunTime.h"; sourceTree = "<group>"; };
+		C4738C751EFE4AA900608E17 /* NSObject+BARunTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BARunTime.m"; sourceTree = "<group>"; };
+		C4738C761EFE4AA900608E17 /* UIAlertController+BAKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+BAKit.h"; sourceTree = "<group>"; };
+		C4738C771EFE4AA900608E17 /* UIAlertController+BAKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+BAKit.m"; sourceTree = "<group>"; };
 		C4DB85291EF2353400B6D9C3 /* BAWKWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BAWKWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DB852D1EF2353400B6D9C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4DB852F1EF2353400B6D9C3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -53,16 +63,7 @@
 		C4DB85591EF2358C00B6D9C3 /* ViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController2.h; sourceTree = "<group>"; };
 		C4DB855A1EF2358C00B6D9C3 /* ViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController2.m; sourceTree = "<group>"; };
 		C4DB85681EF235A800B6D9C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C4DB85771EF2369900B6D9C3 /* BAAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAlertController.h; sourceTree = "<group>"; };
-		C4DB85781EF2369900B6D9C3 /* NSMutableAttributedString+BAKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+BAKit.h"; sourceTree = "<group>"; };
-		C4DB85791EF2369900B6D9C3 /* NSMutableAttributedString+BAKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+BAKit.m"; sourceTree = "<group>"; };
-		C4DB857A1EF2369900B6D9C3 /* NSObject+BARunTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BARunTime.h"; sourceTree = "<group>"; };
-		C4DB857B1EF2369900B6D9C3 /* NSObject+BARunTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BARunTime.m"; sourceTree = "<group>"; };
-		C4DB857C1EF2369900B6D9C3 /* UIAlertController+BAKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+BAKit.h"; sourceTree = "<group>"; };
-		C4DB857D1EF2369900B6D9C3 /* UIAlertController+BAKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+BAKit.m"; sourceTree = "<group>"; };
 		C4DB857E1EF2369900B6D9C3 /* BAKit_WebView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BAKit_WebView.bundle; sourceTree = "<group>"; };
-		C4DB857F1EF2369900B6D9C3 /* BAWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAWebViewController.h; sourceTree = "<group>"; };
-		C4DB85801EF2369900B6D9C3 /* BAWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAWebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +86,21 @@
 				C4297C651EF51A49005DDC30 /* jquery-1.7.2.min.js */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		C4738C6F1EFE4AA900608E17 /* BAAlertController */ = {
+			isa = PBXGroup;
+			children = (
+				C4738C701EFE4AA900608E17 /* BAAlertController.h */,
+				C4738C711EFE4AA900608E17 /* BAKit_ConfigurationDefine.h */,
+				C4738C721EFE4AA900608E17 /* NSMutableAttributedString+BAKit.h */,
+				C4738C731EFE4AA900608E17 /* NSMutableAttributedString+BAKit.m */,
+				C4738C741EFE4AA900608E17 /* NSObject+BARunTime.h */,
+				C4738C751EFE4AA900608E17 /* NSObject+BARunTime.m */,
+				C4738C761EFE4AA900608E17 /* UIAlertController+BAKit.h */,
+				C4738C771EFE4AA900608E17 /* UIAlertController+BAKit.m */,
+			);
+			path = BAAlertController;
 			sourceTree = "<group>";
 		};
 		C4DB85201EF2353400B6D9C3 = {
@@ -150,26 +166,12 @@
 		C4DB85751EF2369900B6D9C3 /* BAWebViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C4DB85761EF2369900B6D9C3 /* BAAlertController */,
+				C4738C6F1EFE4AA900608E17 /* BAAlertController */,
+				C4738C6C1EFE4A4C00608E17 /* BAWebViewController.h */,
+				C4738C6D1EFE4A4C00608E17 /* BAWebViewController.m */,
 				C4DB857E1EF2369900B6D9C3 /* BAKit_WebView.bundle */,
-				C4DB857F1EF2369900B6D9C3 /* BAWebViewController.h */,
-				C4DB85801EF2369900B6D9C3 /* BAWebViewController.m */,
 			);
 			path = BAWebViewController;
-			sourceTree = "<group>";
-		};
-		C4DB85761EF2369900B6D9C3 /* BAAlertController */ = {
-			isa = PBXGroup;
-			children = (
-				C4DB85771EF2369900B6D9C3 /* BAAlertController.h */,
-				C4DB85781EF2369900B6D9C3 /* NSMutableAttributedString+BAKit.h */,
-				C4DB85791EF2369900B6D9C3 /* NSMutableAttributedString+BAKit.m */,
-				C4DB857A1EF2369900B6D9C3 /* NSObject+BARunTime.h */,
-				C4DB857B1EF2369900B6D9C3 /* NSObject+BARunTime.m */,
-				C4DB857C1EF2369900B6D9C3 /* UIAlertController+BAKit.h */,
-				C4DB857D1EF2369900B6D9C3 /* UIAlertController+BAKit.m */,
-			);
-			path = BAAlertController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,13 +255,13 @@
 				C4DB85541EF2356500B6D9C3 /* WKWebView+BAJavaScriptAlert.m in Sources */,
 				C4DB85311EF2353400B6D9C3 /* AppDelegate.m in Sources */,
 				C4DB85611EF2358C00B6D9C3 /* ViewController2.m in Sources */,
-				C4DB85831EF2369900B6D9C3 /* UIAlertController+BAKit.m in Sources */,
-				C4DB85811EF2369900B6D9C3 /* NSMutableAttributedString+BAKit.m in Sources */,
 				C4DB852E1EF2353400B6D9C3 /* main.m in Sources */,
-				C4DB85851EF2369900B6D9C3 /* BAWebViewController.m in Sources */,
+				C4738C7A1EFE4AA900608E17 /* UIAlertController+BAKit.m in Sources */,
+				C4738C781EFE4AA900608E17 /* NSMutableAttributedString+BAKit.m in Sources */,
 				C4DB85551EF2356500B6D9C3 /* WKWebView+BAKit.m in Sources */,
+				C4738C6E1EFE4A4C00608E17 /* BAWebViewController.m in Sources */,
 				C4DB85561EF2356500B6D9C3 /* WKWebView+Post.m in Sources */,
-				C4DB85821EF2369900B6D9C3 /* NSObject+BARunTime.m in Sources */,
+				C4738C791EFE4AA900608E17 /* NSObject+BARunTime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

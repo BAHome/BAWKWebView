@@ -114,15 +114,15 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
  @param block block
  @return 普通 带 textField 的 UIAlertController-Alert
  */
-+ (nonnull instancetype)ba_alert2ShowInViewController:(nonnull UIViewController *)viewController
-                                                title:(nullable NSString *)title
-                                              message:(nullable NSString *)message
-                                     buttonTitleArray:(nullable NSArray *)buttonTitleArray
-                                buttonTitleColorArray:(nullable NSArray <UIColor *> *)buttonTitleColorArray
-                        buttonEnabledNoWithTitleArray:(NSArray <NSString *> *_Nullable)buttonEnabledNoWithTitleArray
-                            textFieldPlaceholderArray:(NSArray <NSString *> *_Nullable)textFieldPlaceholderArray
-                    textFieldConfigurationActionBlock:(nullable BAKit_AlertControllerTextFieldConfigurationActionBlock)textFieldConfigurationActionBlock
-                                                block:(nullable BAKit_AlertControllerButtonActionBlock)block;
++ (nonnull instancetype)ba_alertTextFieldShowInViewController:(nonnull UIViewController *)viewController
+                                                        title:(nullable NSString *)title
+                                                      message:(nullable NSString *)message
+                                             buttonTitleArray:(nullable NSArray *)buttonTitleArray
+                                        buttonTitleColorArray:(nullable NSArray <UIColor *> *)buttonTitleColorArray
+                                buttonEnabledNoWithTitleArray:(NSArray <NSString *> *_Nullable)buttonEnabledNoWithTitleArray
+                                    textFieldPlaceholderArray:(NSArray <NSString *> *_Nullable)textFieldPlaceholderArray
+                            textFieldConfigurationActionBlock:(nullable BAKit_AlertControllerTextFieldConfigurationActionBlock)textFieldConfigurationActionBlock
+                                                        block:(nullable BAKit_AlertControllerButtonActionBlock)block;
 
 /**
  快速创建一个系统 attributedTitle UIAlertController-Alert
