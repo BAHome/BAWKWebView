@@ -13,6 +13,9 @@
 * 5、有博爱封装好的 BAWebViewController 可以直接使用，也可以参考自定义浏览器【参考demo】
 * 6、WKWebView 自定义 request post 数据到 JS（使用分类）
 * 7、WKWebView OC 拦截 JS URL 处理，详见demo
+* 8、修复 WKWebView 中的 alert 不能弹出的 bug！（详见 demo5）<br>
+* 9、新增 cell 中 WKWebView 高度自适应 demo（demo 有小部分遗留问题待解决）<br>
+ 
 
 ## 2、图片示例
 ![BAWKWebView](https://github.com/BAHome/BAWKWebView/blob/master/Images/BAWKWebView.gif)
@@ -55,10 +58,16 @@
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAWKWebView
  
- 最新更新时间：2017-06-23 【倒叙】
- 最新Version：【Version：1.0.3】
- 更新内容：
- 1.0.3.1、优化部分宏定义
+ 最新更新时间：2017-07-05 【倒叙】<br>
+ 最新Version：【Version：1.0.4】<br>
+ 更新内容：<br>
+ 1.0.4.1、修复 WKWebView 中的 alert 不能弹出的 bug！（详见 demo5）<br>
+ 1.0.4.2、新增 cell 中 WKWebView 高度自适应 demo（demo 有小部分遗留问题待解决）<br>
+ 
+ 最新更新时间：2017-06-23 【倒叙】<br>
+ 最新Version：【Version：1.0.3】<br>
+ 更新内容：<br>
+ 1.0.3.1、优化部分宏定义<br>
  1.0.3.2、修复已知 bug（注意：代理方式必须手动添加，详见 demo） （感谢群里 @唐海洋 同学提出的 需求！）<br>
 
  最新更新时间：2017-06-17 【倒叙】
@@ -164,6 +173,13 @@ typedef void (^BAKit_webView_decidePolicyForNavigationActionBlock)(NSURL *curren
  */
 typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
 
+/**
+ 获取 webview 当前的 currentHeight
+ 
+ @param currentHeight currentHeight
+ */
+typedef void (^BAKit_webView_getCurrentHeightBlock)(CGFloat currentHeight);
+
 
 @interface WKWebView (BAKit)
 <
@@ -172,10 +188,6 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
     WKScriptMessageHandler
 >
 
-/**
- 当前网页的高度
- */
-@property(nonatomic, assign) CGFloat ba_web_currentHeight;
 
 /**
  是否可以返回上级页面
@@ -192,6 +204,8 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
  */
 @property(nonatomic, strong) NSString *ba_web_urlScheme;
 
+@property(nonatomic) BOOL ba_web_isFirstLoad;
+
 @property(nonatomic, copy) BAKit_webView_didStartProvisionalNavigationBlock ba_web_didStartBlock;
 @property(nonatomic, copy) BAKit_webView_didCommitNavigationBlock ba_web_didCommitBlock;
 @property(nonatomic, copy) BAKit_webView_didFinishNavigationBlock ba_web_didFinishBlock;
@@ -201,6 +215,7 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
 @property(nonatomic, copy) BAKit_webView_userContentControllerDidReceiveScriptMessageBlock ba_web_userContentControllerDidReceiveScriptMessageBlock;
 @property(nonatomic, copy) BAKit_webView_decidePolicyForNavigationActionBlock ba_web_decidePolicyForNavigationActionBlock;
 @property(nonatomic, copy) BAKit_webView_getCurrentUrlBlock ba_web_getCurrentUrlBlock;
+@property(nonatomic, copy) BAKit_webView_getCurrentHeightBlock ba_web_getCurrentHeightBlock;
 
 #pragma mark - Public method
 
@@ -214,7 +229,6 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
  */
 - (void)ba_web_initWithDelegate:(id<WKNavigationDelegate>)navigationDelegate
                      uIDelegate:(id<WKUIDelegate>)uIDelegate;
-
 
 /**
  *  返回上一级页面
@@ -366,7 +380,6 @@ NS_ASSUME_NONNULL_END
     
     [self configBackItem];
     [self configMenuItem];
-    
     
     BAKit_WeakSelf;
     self.webView.ba_web_didStartBlock = ^(WKWebView *webView, WKNavigation *navigation) {
@@ -689,10 +702,16 @@ NSURL *url = [[NSBundle mainBundle] URLForResource:@"BAWebView" withExtension:@"
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
  
- 最新更新时间：2017-06-23 【倒叙】
- 最新Version：【Version：1.0.3】
- 更新内容：
- 1.0.3.1、优化部分宏定义
+ 最新更新时间：2017-07-05 【倒叙】<br>
+ 最新Version：【Version：1.0.4】<br>
+ 更新内容：<br>
+ 1.0.4.1、修复 WKWebView 中的 alert 不能弹出的 bug！（详见 demo5）<br>
+ 1.0.4.2、新增 cell 中 WKWebView 高度自适应 demo（demo 有小部分遗留问题待解决）<br>
+ 
+ 最新更新时间：2017-06-23 【倒叙】<br>
+ 最新Version：【Version：1.0.3】<br>
+ 更新内容：<br>
+ 1.0.3.1、优化部分宏定义<br>
  1.0.3.2、修复已知 bug（注意：代理方式必须手动添加，详见 demo） （感谢群里 @唐海洋 同学提出的 需求！）<br>
 
  最新更新时间：2017-06-17 【倒叙】<br>

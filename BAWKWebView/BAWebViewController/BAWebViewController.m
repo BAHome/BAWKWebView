@@ -318,7 +318,6 @@
     return _webView;
 }
 
-
 - (WKWebViewConfiguration *)webConfig
 {
     if (!_webConfig) {

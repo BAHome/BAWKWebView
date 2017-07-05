@@ -80,6 +80,13 @@ typedef void (^BAKit_webView_decidePolicyForNavigationActionBlock)(NSURL *curren
  */
 typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
 
+/**
+ 获取 webview 当前的 currentHeight
+ 
+ @param currentHeight currentHeight
+ */
+typedef void (^BAKit_webView_getCurrentHeightBlock)(CGFloat currentHeight);
+
 
 @interface WKWebView (BAKit)
 <
@@ -88,10 +95,6 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
     WKScriptMessageHandler
 >
 
-/**
- 当前网页的高度
- */
-@property(nonatomic, assign) CGFloat ba_web_currentHeight;
 
 /**
  是否可以返回上级页面
@@ -108,6 +111,8 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
  */
 @property(nonatomic, strong) NSString *ba_web_urlScheme;
 
+@property(nonatomic) BOOL ba_web_isFirstLoad;
+
 @property(nonatomic, copy) BAKit_webView_didStartProvisionalNavigationBlock ba_web_didStartBlock;
 @property(nonatomic, copy) BAKit_webView_didCommitNavigationBlock ba_web_didCommitBlock;
 @property(nonatomic, copy) BAKit_webView_didFinishNavigationBlock ba_web_didFinishBlock;
@@ -117,6 +122,7 @@ typedef void (^BAKit_webView_getCurrentUrlBlock)(NSURL *currentUrl);
 @property(nonatomic, copy) BAKit_webView_userContentControllerDidReceiveScriptMessageBlock ba_web_userContentControllerDidReceiveScriptMessageBlock;
 @property(nonatomic, copy) BAKit_webView_decidePolicyForNavigationActionBlock ba_web_decidePolicyForNavigationActionBlock;
 @property(nonatomic, copy) BAKit_webView_getCurrentUrlBlock ba_web_getCurrentUrlBlock;
+@property(nonatomic, copy) BAKit_webView_getCurrentHeightBlock ba_web_getCurrentHeightBlock;
 
 #pragma mark - Public method
 

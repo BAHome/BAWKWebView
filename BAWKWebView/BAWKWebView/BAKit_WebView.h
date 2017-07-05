@@ -25,10 +25,16 @@
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAWKWebView
  
- 最新更新时间：2017-06-23 【倒叙】
- 最新Version：【Version：1.0.3】
- 更新内容：
- 1.0.3.1、优化部分宏定义
+ 最新更新时间：2017-07-05 【倒叙】<br>
+ 最新Version：【Version：1.0.4】<br>
+ 更新内容：<br>
+ 1.0.4.1、修复 WKWebView 中的 alert 不能弹出的 bug！（详见 demo5）<br>
+ 1.0.4.2、新增 cell 中 WKWebView 高度自适应 demo（demo 有小部分遗留问题待解决）<br>
+ 
+ 最新更新时间：2017-06-23 【倒叙】<br>
+ 最新Version：【Version：1.0.3】<br>
+ 更新内容：<br>
+ 1.0.3.1、优化部分宏定义<br>
  1.0.3.2、修复已知 bug（注意：代理方式必须手动添加，详见 demo） （感谢群里 @唐海洋 同学提出的 需求！）<br>
  
  最新更新时间：2017-06-23 【倒叙】

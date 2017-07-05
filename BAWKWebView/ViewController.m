@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ViewController2.h"
+#import "ViewController3.h"
 
 #import "BAKit_WebView.h"
 #import "BAWebViewController.h"
@@ -121,6 +122,14 @@ static NSString * const kURL1 = @"https://www.baidu.com";
             [self.navigationController pushViewController:vc2 animated:YES];
         }
             break;
+        case 5:
+        {
+            ViewController3 *vc2 = [ViewController3 new];
+            vc2.title = self.dataArray[indexPath.row];
+            
+            [self.navigationController pushViewController:vc2 animated:YES];
+        }
+            break;
             
         default:
             break;
@@ -171,7 +180,8 @@ static NSString * const kURL1 = @"https://www.baidu.com";
                        @"加载 后台返回 的 htmlString",
                        @"加载自定义 request",
                        @"加载本地 HTML 文件",
-                       @"OC JS 互调"
+                       @"OC JS 互调",
+                       @"cell 中添加 html"
                        ];
     }
     return _dataArray;

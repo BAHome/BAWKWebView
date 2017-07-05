@@ -90,20 +90,23 @@
 
         // OC调用JS的方法列表
         function ba_insert(num,msg) {
-            //window.alert('这是我的手机号:' + num + ',' + msg + '!!')
+            alert('这是我的手机号:' + num + ',' + msg + '!!')
             document.getElementById('id_insert').innerHTML = '这是我的手机号:' + num + ',' + msg + '!'
         }
 
         // JS响应方法列表 BA_Alert BA_JumpVC BA_SendMsg
         function btnClick1() {
+            alert('这里是 JS 中的 aerlt！');
             window.webkit.messageHandlers.BA_Alert.postMessage(null)
         }
 
         function ba_JumpVC() {
+            alert('这里是 JS 中的 aerlt！');
             window.webkit.messageHandlers.BA_JumpVC.postMessage(null)
         }
 
         function btnClick3() {
+            alert('这里是 JS 中的 aerlt！');
             window.webkit.messageHandlers.BA_SendMsg.postMessage(['18566668888', '生命不息，折腾不止...'])
         }
 

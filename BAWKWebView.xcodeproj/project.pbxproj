@@ -15,6 +15,9 @@
 		C4738C781EFE4AA900608E17 /* NSMutableAttributedString+BAKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C4738C731EFE4AA900608E17 /* NSMutableAttributedString+BAKit.m */; };
 		C4738C791EFE4AA900608E17 /* NSObject+BARunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C4738C751EFE4AA900608E17 /* NSObject+BARunTime.m */; };
 		C4738C7A1EFE4AA900608E17 /* UIAlertController+BAKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C4738C771EFE4AA900608E17 /* UIAlertController+BAKit.m */; };
+		C499B7001F0633D300C467E8 /* ViewController3.m in Sources */ = {isa = PBXBuildFile; fileRef = C499B6FF1F0633D300C467E8 /* ViewController3.m */; };
+		C499B7031F06371400C467E8 /* BACell.m in Sources */ = {isa = PBXBuildFile; fileRef = C499B7021F06371400C467E8 /* BACell.m */; };
+		C499B7061F06392800C467E8 /* WebVIewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C499B7051F06392800C467E8 /* WebVIewModel.m */; };
 		C4DB852E1EF2353400B6D9C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB852D1EF2353400B6D9C3 /* main.m */; };
 		C4DB85311EF2353400B6D9C3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB85301EF2353400B6D9C3 /* AppDelegate.m */; };
 		C4DB85391EF2353400B6D9C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4DB85381EF2353400B6D9C3 /* Assets.xcassets */; };
@@ -43,6 +46,12 @@
 		C4738C751EFE4AA900608E17 /* NSObject+BARunTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BARunTime.m"; sourceTree = "<group>"; };
 		C4738C761EFE4AA900608E17 /* UIAlertController+BAKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+BAKit.h"; sourceTree = "<group>"; };
 		C4738C771EFE4AA900608E17 /* UIAlertController+BAKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+BAKit.m"; sourceTree = "<group>"; };
+		C499B6FE1F0633D300C467E8 /* ViewController3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController3.h; sourceTree = "<group>"; };
+		C499B6FF1F0633D300C467E8 /* ViewController3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController3.m; sourceTree = "<group>"; };
+		C499B7011F06371400C467E8 /* BACell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BACell.h; sourceTree = "<group>"; };
+		C499B7021F06371400C467E8 /* BACell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BACell.m; sourceTree = "<group>"; };
+		C499B7041F06392800C467E8 /* WebVIewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebVIewModel.h; sourceTree = "<group>"; };
+		C499B7051F06392800C467E8 /* WebVIewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebVIewModel.m; sourceTree = "<group>"; };
 		C4DB85291EF2353400B6D9C3 /* BAWKWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BAWKWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DB852D1EF2353400B6D9C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4DB852F1EF2353400B6D9C3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -130,6 +139,12 @@
 				C4DB85581EF2358C00B6D9C3 /* ViewController.m */,
 				C4DB85591EF2358C00B6D9C3 /* ViewController2.h */,
 				C4DB855A1EF2358C00B6D9C3 /* ViewController2.m */,
+				C499B6FE1F0633D300C467E8 /* ViewController3.h */,
+				C499B6FF1F0633D300C467E8 /* ViewController3.m */,
+				C499B7011F06371400C467E8 /* BACell.h */,
+				C499B7021F06371400C467E8 /* BACell.m */,
+				C499B7041F06392800C467E8 /* WebVIewModel.h */,
+				C499B7051F06392800C467E8 /* WebVIewModel.m */,
 				C4297C611EF51A49005DDC30 /* Resources */,
 				C4DB85671EF235A800B6D9C3 /* Main.storyboard */,
 				C4DB85381EF2353400B6D9C3 /* Assets.xcassets */,
@@ -253,13 +268,16 @@
 			files = (
 				C4DB85601EF2358C00B6D9C3 /* ViewController.m in Sources */,
 				C4DB85541EF2356500B6D9C3 /* WKWebView+BAJavaScriptAlert.m in Sources */,
+				C499B7001F0633D300C467E8 /* ViewController3.m in Sources */,
 				C4DB85311EF2353400B6D9C3 /* AppDelegate.m in Sources */,
 				C4DB85611EF2358C00B6D9C3 /* ViewController2.m in Sources */,
 				C4DB852E1EF2353400B6D9C3 /* main.m in Sources */,
 				C4738C7A1EFE4AA900608E17 /* UIAlertController+BAKit.m in Sources */,
 				C4738C781EFE4AA900608E17 /* NSMutableAttributedString+BAKit.m in Sources */,
 				C4DB85551EF2356500B6D9C3 /* WKWebView+BAKit.m in Sources */,
+				C499B7061F06392800C467E8 /* WebVIewModel.m in Sources */,
 				C4738C6E1EFE4A4C00608E17 /* BAWebViewController.m in Sources */,
+				C499B7031F06371400C467E8 /* BACell.m in Sources */,
 				C4DB85561EF2356500B6D9C3 /* WKWebView+Post.m in Sources */,
 				C4738C791EFE4AA900608E17 /* NSObject+BARunTime.m in Sources */,
 			);

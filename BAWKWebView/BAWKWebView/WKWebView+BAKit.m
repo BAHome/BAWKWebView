@@ -10,6 +10,8 @@
 #import "BAKit_ConfigurationDefine.h"
 #import "WKWebView+BAJavaScriptAlert.h"
 
+
+
 @implementation WKWebView (BAKit)
 
 #pragma mark - hook
@@ -111,7 +113,7 @@
     else if ([keyPath isEqualToString:@"estimatedProgress"])
     {
         // estimatedProgress：加载进度，范围：0.0f ~ 1.0f
-        NSLog(@"progress: %f", self.estimatedProgress);
+//        NSLog(@"progress: %f", self.estimatedProgress);
         if (self.ba_web_isLoadingBlock)
         {
             self.ba_web_isLoadingBlock(self.loading, self.estimatedProgress);
@@ -122,7 +124,7 @@
         NSURL *newUrl = [change objectForKey:NSKeyValueChangeNewKey];
         NSURL *oldUrl = [change objectForKey:NSKeyValueChangeOldKey];
         if (![newUrl isKindOfClass:[NSURL class]] && [oldUrl isKindOfClass:[NSURL class]]) {
-            [self reload];
+//            [self reload];
         };
     }
     
@@ -137,11 +139,10 @@
 }
 
 #ifndef NSFoundationVersionNumber_iOS_9_0
-- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView NS_AVAILABLE(10_11, 9_0){
-    
-    NSLog(@"进程被终止");
-    NSLog(@"%@",webView.URL);
-    [webView reload];
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView NS_AVAILABLE(10_11, 9_0)
+{
+    NSLog(@"进程被终止 %@",webView.URL);
+//    [webView reload];
 }
 #else
 
@@ -189,7 +190,7 @@
 {
     // 这里可以通过 name 处理多组交互
     // body 只支持 NSNumber, NSString, NSDate, NSArray,NSDictionary 和 NSNull 类型
-    NSLog(@"JS 中 message Body ：%@",message.body);
+//    NSLog(@"JS 中 message Body ：%@",message.body);
     
     if (self.ba_web_userContentControllerDidReceiveScriptMessageBlock)
     {
@@ -214,14 +215,14 @@
 //    NSString *hostname = navigationAction.request.URL.host.lowercaseString;
 //    NSLog(@"%@",hostname);
     NSURL *url = navigationAction.request.URL;
-    NSString *url_string = url.absoluteString;
+//    NSString *url_string = url.absoluteString;
     NSString *url_scheme = url.scheme;
-    NSString *url_query = url.query;
-    NSString *url_host = url.host;
+//    NSString *url_query = url.query;
+//    NSString *url_host = url.host;
     
-    NSLog(@"URL scheme:%@", url_scheme);
-    NSLog(@"URL scheme2:%@", self.ba_web_urlScheme);
-    NSLog(@"URL query: %@", url_query);
+//    NSLog(@"URL scheme:%@", url_scheme);
+//    NSLog(@"URL scheme2:%@", self.ba_web_urlScheme);
+//    NSLog(@"URL query: %@", url_query);
     
     if ([url_scheme isEqualToString:self.ba_web_urlScheme])
     {
@@ -251,9 +252,9 @@
     }
     
     // 参数 WKNavigationAction 中有两个属性：sourceFrame 和 targetFrame，分别代表这个 action 的出处和目标，类型是 WKFrameInfo 。WKFrameInfo有一个 mainFrame 的属性，标记frame是在主frame里显示还是新开一个frame显示
-    WKFrameInfo *frameInfo = navigationAction.targetFrame;
-    BOOL isMainframe = [frameInfo isMainFrame];
-    NSLog(@"isMainframe :%d", isMainframe);
+//    WKFrameInfo *frameInfo = navigationAction.targetFrame;
+//    BOOL isMainframe = [frameInfo isMainFrame];
+//    NSLog(@"isMainframe :%d", isMainframe);
     
     if (![self ba_externalAppRequiredToOpenURL:url])
     {
@@ -305,24 +306,37 @@
 }
 
 // 页面加载完成之后调用
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-    // webView 高度自适应
-    [self ba_web_stringByEvaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        // 获取页面高度，并重置 webview 的 frame
-        self.ba_web_currentHeight = [result doubleValue];
-        NSLog(@"html 的高度：%f", self.ba_web_currentHeight);
-        
-        //        CGRect frame = webView.frame;
-        //        frame.size.height = self.ba_web_currentHeight;
-        //        webView.frame = frame;
-    }];
-    
+    if (!self.ba_web_isFirstLoad)
+    {
+        self.ba_web_isFirstLoad = YES;
+    }
+    else
+    {
+        return;
+    }
+
+    if (self.ba_web_getCurrentHeightBlock)
+    {
+        // webView 高度自适应
+        [self ba_web_stringByEvaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            // 获取页面高度，并重置 webview 的 frame
+            NSLog(@"html 的高度：%f", [result doubleValue]);
+            
+            self.ba_web_getCurrentHeightBlock([result doubleValue]);
+            self.ba_web_isFirstLoad = NO;
+
+            //        CGRect frame = webView.frame;
+            //        frame.size.height = currentHeight;
+            //        webView.frame = frame;
+            //        [webView.superview setNeedsLayout];
+        }];
+    }
     if (self.ba_web_didFinishBlock)
     {
         self.ba_web_didFinishBlock(webView, navigation);
     }
-    
 }
 
 // 页面加载失败时调用
@@ -332,12 +346,6 @@
     {
         self.ba_web_didFailBlock(webView, navigation);
     }
-}
-
-#pragma mark - WKUIDelegate
-- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler
-{
-    BAKit_ShowAlertWithMsg(@"知道了");
 }
 
 #pragma mark - Public method
@@ -461,7 +469,6 @@
     [self evaluateJavaScript:javaScriptString completionHandler:completionHandler];
 }
 
-
 /**
  添加 js 调用 OC，addScriptMessageHandler:name:有两个参数，第一个参数是 userContentController的代理对象，第二个参数是 JS 里发送 postMessage 的对象。添加一个脚本消息的处理器,同时需要在 JS 中添加，window.webkit.messageHandlers.<name>.postMessage(<messageBody>)才能起作用。
  
@@ -498,6 +505,8 @@
     return dstURL;
 }
 
+
+
 #pragma mark - setter / getter
 
 + (void)load
@@ -506,16 +515,7 @@
 //    BAKit_Objc_exchangeMethodAToB(NSSelectorFromString(@"initWithFrame"), @selector(ba_web_initWithFrame));
     BAKit_Objc_exchangeMethodAToB(NSSelectorFromString(@"dealloc"),
                                   @selector(ba_web_dealloc));
-}
 
-- (void)setBa_web_currentHeight:(CGFloat)ba_web_currentHeight
-{
-    BAKit_Objc_setObj(@selector(ba_web_currentHeight), @(ba_web_currentHeight));
-}
-
-- (CGFloat)ba_web_currentHeight
-{
-    return [BAKit_Objc_getObj floatValue];
 }
 
 - (BOOL)ba_web_canGoBack
@@ -618,6 +618,16 @@
     return BAKit_Objc_getObj;
 }
 
+- (void)setBa_web_getCurrentHeightBlock:(BAKit_webView_getCurrentHeightBlock)ba_web_getCurrentHeightBlock
+{
+    BAKit_Objc_setObj(@selector(ba_web_getCurrentHeightBlock), ba_web_getCurrentHeightBlock);
+}
+
+- (BAKit_webView_getCurrentHeightBlock)ba_web_getCurrentHeightBlock
+{
+    return BAKit_Objc_getObj;
+}
+
 - (void)setBa_web_urlScheme:(NSString *)ba_web_urlScheme
 {
     BAKit_Objc_setObj(@selector(ba_web_urlScheme), ba_web_urlScheme);
@@ -628,5 +638,15 @@
     return BAKit_Objc_getObj;
 }
 
+- (void)setBa_web_isFirstLoad:(BOOL)ba_web_isFirstLoad
+{
+    BAKit_Objc_setObj(@selector(ba_web_isFirstLoad), @(ba_web_isFirstLoad));
+}
+
+- (BOOL)ba_web_isFirstLoad
+{
+    return BAKit_Objc_getObj;
+}
+                      
 
 @end
