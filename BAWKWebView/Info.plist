@@ -34,6 +34,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
     <!--    // 在使用期间访问位置-->
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>App需要您的同意,才能在使用期间访问位置</string>
