@@ -308,14 +308,6 @@
 // 页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-    if (!self.ba_web_isFirstLoad)
-    {
-        self.ba_web_isFirstLoad = YES;
-    }
-    else
-    {
-        return;
-    }
 
     if (self.ba_web_getCurrentHeightBlock)
     {
@@ -325,7 +317,6 @@
             NSLog(@"html 的高度：%f", [result doubleValue]);
             
             self.ba_web_getCurrentHeightBlock([result doubleValue]);
-            self.ba_web_isFirstLoad = NO;
 
             //        CGRect frame = webView.frame;
             //        frame.size.height = currentHeight;
@@ -637,16 +628,5 @@
 {
     return BAKit_Objc_getObj;
 }
-
-- (void)setBa_web_isFirstLoad:(BOOL)ba_web_isFirstLoad
-{
-    BAKit_Objc_setObj(@selector(ba_web_isFirstLoad), @(ba_web_isFirstLoad));
-}
-
-- (BOOL)ba_web_isFirstLoad
-{
-    return BAKit_Objc_getObj;
-}
-                      
 
 @end

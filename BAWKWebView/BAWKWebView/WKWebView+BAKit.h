@@ -111,8 +111,6 @@ typedef void (^BAKit_webView_getCurrentHeightBlock)(CGFloat currentHeight);
  */
 @property(nonatomic, strong) NSString *ba_web_urlScheme;
 
-@property(nonatomic) BOOL ba_web_isFirstLoad;
-
 @property(nonatomic, copy) BAKit_webView_didStartProvisionalNavigationBlock ba_web_didStartBlock;
 @property(nonatomic, copy) BAKit_webView_didCommitNavigationBlock ba_web_didCommitBlock;
 @property(nonatomic, copy) BAKit_webView_didFinishNavigationBlock ba_web_didFinishBlock;
