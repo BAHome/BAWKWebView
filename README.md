@@ -19,6 +19,7 @@
  
 ## 2、图片示例
 ![BAWKWebView](https://github.com/BAHome/BAWKWebView/blob/master/Images/BAWKWebView.gif)
+![BAWKWebView1](https://github.com/BAHome/BAWKWebView/blob/master/Images/BAWKWebView1.png)
 
 ## 3、安装、导入示例和源码地址
 * 1、pod 导入【最新版本：![](https://img.shields.io/cocoapods/v/BAWKWebView.svg?style=flat)】： <br>
