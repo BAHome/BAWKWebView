@@ -25,6 +25,11 @@
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAWKWebView
  
+ 最新更新时间：2017-07-07 【倒叙】<br>
+ 最新Version：【Version：1.0.5】<br>
+ 更新内容：<br>
+ 1.0.5.1、自定义修改 navigator.userAgent（详见 demo BAWebViewController）<br>
+ 
  最新更新时间：2017-07-05 【倒叙】<br>
  最新Version：【Version：1.0.4】<br>
  更新内容：<br>

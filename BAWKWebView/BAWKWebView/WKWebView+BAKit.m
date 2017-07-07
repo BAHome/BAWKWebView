@@ -309,13 +309,25 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
 
+//    CGRect frame = webView.frame;
+//    NSString *heightStrig = [webView stringByEvaluatingJavaScriptFromString:@"(document.height !== undefined) ? document.height : document.body.offsetHeight;"];
+//    float height = heightStrig.floatValue + 10.0;
+//    frame.size.height = height;
+//    webView.frame = frame;
+    
+    NSString *heightString = @"document.body.offsetHeight";
+    NSString *heightString2 = @"document.getElementById(\"content\").offsetHeight;";
+    NSString *heightString3 = @"(document.height !== undefined) ? document.height : document.body.offsetHeight;";
+    NSString *heightString4 = @"document.body.scrollHeight";
+    
     if (self.ba_web_getCurrentHeightBlock)
     {
         // webView 高度自适应
-        [self ba_web_stringByEvaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        [self ba_web_stringByEvaluateJavaScript:heightString4 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             // 获取页面高度，并重置 webview 的 frame
-            NSLog(@"html 的高度：%f", [result doubleValue]);
-            
+            NSLog(@"html 的高度：%@", result);
+//            NSLog(@"html 的高度：%f", [result doubleValue]);
+
             self.ba_web_getCurrentHeightBlock([result doubleValue]);
 
             //        CGRect frame = webView.frame;

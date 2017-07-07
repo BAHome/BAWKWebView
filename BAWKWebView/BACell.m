@@ -48,17 +48,18 @@ static NSString * const kCellID = @"BACell_id";
 {
     _model = model;
     
-    if (model.height == 100)
+    if (self.model.height == 100)
     {
-        [self.webView ba_web_loadHTMLString:model.contentHtml];
+        [self.webView ba_web_loadHTMLString:self.model.contentHtml];
     }
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-        
-    self.webView.scrollView.contentInset = UIEdgeInsetsMake(self.webView.scrollView.contentInset.top, 0, 0, 0);
-    self.webView.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - self.webView.scrollView.contentInset.top);
+    
+    self.webView.frame = self.bounds;
+//    self.webView.scrollView.contentInset = UIEdgeInsetsMake(self.webView.scrollView.contentInset.top, 0, 0, 0);
+//    self.webView.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - self.webView.scrollView.contentInset.top);
 }
 
 - (WKWebView *)webView
@@ -75,15 +76,39 @@ static NSString * const kCellID = @"BACell_id";
         _webView.userInteractionEnabled = false;
         
         self.webView.ba_web_getCurrentHeightBlock = ^(CGFloat currentHeight) {
-            
+
             BAKit_StrongSelf
             self.cell_height = currentHeight;
+            NSLog(@"html 高度2：%f", currentHeight);
+
             if (self.WebLoadFinish)
             {
                 self.WebLoadFinish(self.cell_height);
             };
         };
 
+        
+//        self.webView.ba_web_didFinishBlock = ^(WKWebView * _Nonnull webView, WKNavigation * _Nonnull navigation) {
+//            
+//            BAKit_StrongSelf
+//            
+//            CGRect frame = webView.frame;
+////            frame.size.height = 1;
+////            webView.frame = frame;
+//            CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
+//            frame.size = fittingSize;
+//            NSLog(@"html size:：%@", NSStringFromCGSize(fittingSize));
+//            self.webView.frame = frame;
+//            
+//            self.cell_height = fittingSize.height;
+//            
+//            if (self.WebLoadFinish)
+//            {
+//                self.WebLoadFinish(self.cell_height);
+//            };
+//
+//        };
+        
         [self.contentView addSubview:_webView];
     }
     return _webView;

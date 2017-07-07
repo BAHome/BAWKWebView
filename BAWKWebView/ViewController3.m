@@ -142,6 +142,11 @@ static NSString * const htmlString1 = @"<img style=\"width:100%;\" src=\"http://
     {
         _dataArray = @[].mutableCopy;
         
+//        NSString *htmlPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@.html", @"BAHome2"] ofType:nil];
+//        
+//        NSString *HTMLString = [NSString stringWithContentsOfFile:htmlPath
+//                                                         encoding:NSUTF8StringEncoding
+//                                                                error:nil];
         for (int i = 0; i < 2; i++)
         {
             WebVIewModel *model = [[WebVIewModel alloc]init];

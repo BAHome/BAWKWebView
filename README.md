@@ -15,8 +15,8 @@
 * 7、WKWebView OC 拦截 JS URL 处理，详见demo
 * 8、修复 WKWebView 中的 alert 不能弹出的 bug！（详见 demo5）<br>
 * 9、新增 cell 中 WKWebView 高度自适应 demo（demo 有小部分遗留问题待解决）<br>
+* 10、自定义修改 navigator.userAgent（详见 demo BAWebViewController）<br>
  
-
 ## 2、图片示例
 ![BAWKWebView](https://github.com/BAHome/BAWKWebView/blob/master/Images/BAWKWebView.gif)
 
@@ -57,6 +57,11 @@
  
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAWKWebView
+ 
+ 最新更新时间：2017-07-07 【倒叙】<br>
+ 最新Version：【Version：1.0.5】<br>
+ 更新内容：<br>
+ 1.0.5.1、自定义修改 navigator.userAgent（详见 demo BAWebViewController）<br>
  
  最新更新时间：2017-07-05 【倒叙】<br>
  最新Version：【Version：1.0.4】<br>
@@ -701,6 +706,11 @@ NSURL *url = [[NSBundle mainBundle] URLForResource:@"BAWebView" withExtension:@"
 ## 5、更新记录：【倒叙】
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
+ 
+ 最新更新时间：2017-07-07 【倒叙】<br>
+ 最新Version：【Version：1.0.5】<br>
+ 更新内容：<br>
+ 1.0.5.1、自定义修改 navigator.userAgent（详见 demo BAWebViewController）<br>
  
  最新更新时间：2017-07-05 【倒叙】<br>
  最新Version：【Version：1.0.4】<br>

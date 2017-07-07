@@ -72,6 +72,40 @@
     };
 }
 
+#pragma mark - 修改 navigator.userAgent
+- (void)changeNavigatorUserAgent
+{
+    BAKit_WeakSelf
+    [self.webView ba_web_stringByEvaluateJavaScript:@"navigator.userAgent" completionHandler:^(id  _Nullable result, NSError * _Nullable error) {
+        BAKit_StrongSelf
+        NSLog(@"old agent ----- :%@", result);
+        NSString *userAgent = result;
+        
+        NSString *customAgent = @" native_iOS";
+        if ([userAgent hasSuffix:customAgent])
+        {
+            NSLog(@"navigator.userAgent已经修改过了");
+        }
+        else
+        {
+            NSString *customUserAgent = [userAgent stringByAppendingString:[NSString stringWithFormat:@"%@", customAgent]]; // 这里加空格是为了好看
+            NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:customUserAgent, @"UserAgent", nil];
+            [BAKit_NSUserDefaults registerDefaults:dictionary];
+            [BAKit_NSUserDefaults synchronize];
+            
+            [self.webView setCustomUserAgent:customUserAgent];
+            [self ba_reload];
+        }
+
+    }];
+}
+
+- (void)ba_reload
+{
+    [self.webView ba_web_reload];
+    [self changeNavigatorUserAgent];
+}
+
 - (void)ba_web_progressShow
 {
     // 开始加载网页时展示出progressView
@@ -314,6 +348,8 @@
         //        self.wkWebView.scrollView.alwaysBounceVertical = YES;
         
         [self.view addSubview:self.webView];
+        
+        [self changeNavigatorUserAgent];
     }
     return _webView;
 }
