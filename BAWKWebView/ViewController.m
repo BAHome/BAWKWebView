@@ -82,7 +82,7 @@ static NSString * const kURL1 = @"https://www.baidu.com";
         {
             NSString *headStr = @"<head><style>img{width:100% !important}</style></head>";
             
-            NSString *image1 = [NSString stringWithFormat:@"<div style=\"margin: -8px -8px;\"><img src='%@'/></div>",@"http://img2.3lian.com/2014/f2/159/40.jpg"];
+            NSString *image1 = [NSString stringWithFormat:@"<div style=\"margin: -8px -8px;\"><img src='%@'/></div>",@"http://imgsrc.baidu.com/image/c0%3Dshijue%2C0%2C0%2C245%2C40/sign=4ea99ec2f8d3572c72ef949fe27a0952/f7246b600c338744af80e6575b0fd9f9d72aa050.jpg"];
             NSString *contentStr = @"要知道，《后会无期》不是主流类型片，是一个文艺片。不像《小时代》，是一个商业主流的偶像电影。";
             NSString *htmlURlStr = [NSString stringWithFormat:@"%@<body style='background-color:#ffffff'>%@<br><div style=\"margin: 15px 15px;\">%@</div></body>", headStr, image1, contentStr];
             
