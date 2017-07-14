@@ -290,6 +290,7 @@
 // 开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
 {
+    webView.alpha = 0.f;
     if (self.ba_web_didStartBlock)
     {
         self.ba_web_didStartBlock(webView, navigation);
@@ -309,15 +310,13 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
 
-//    CGRect frame = webView.frame;
-//    NSString *heightStrig = [webView stringByEvaluatingJavaScriptFromString:@"(document.height !== undefined) ? document.height : document.body.offsetHeight;"];
-//    float height = heightStrig.floatValue + 10.0;
-//    frame.size.height = height;
-//    webView.frame = frame;
+    [UIView animateWithDuration:1.f animations:^{
+        webView.alpha = 1.f;
+    }];
     
-    NSString *heightString = @"document.body.offsetHeight";
-    NSString *heightString2 = @"document.getElementById(\"content\").offsetHeight;";
-    NSString *heightString3 = @"(document.height !== undefined) ? document.height : document.body.offsetHeight;";
+//    NSString *heightString = @"document.body.offsetHeight";
+//    NSString *heightString2 = @"document.getElementById(\"content\").offsetHeight;";
+//    NSString *heightString3 = @"(document.height !== undefined) ? document.height : document.body.offsetHeight;";
     NSString *heightString4 = @"document.body.scrollHeight";
     
     if (self.ba_web_getCurrentHeightBlock)
