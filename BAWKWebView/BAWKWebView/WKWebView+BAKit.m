@@ -9,6 +9,7 @@
 #import "WKWebView+BAKit.h"
 #import "BAKit_ConfigurationDefine.h"
 #import "WKWebView+BAJavaScriptAlert.h"
+#import "WeakScriptMessageDelegate.h"
 
 
 
@@ -480,14 +481,13 @@
 {
     if ([nameArray isKindOfClass:[NSArray class]] && nameArray.count > 0)
     {
-        //        self.ba_web_messageName = name;
         [nameArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [self.configuration.userContentController addScriptMessageHandler:self name:obj];
+            [self.configuration.userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:obj];
         }];
     }
 }
 
-//将文件copy到tmp目录
+// 将文件copy到tmp目录
 - (NSURL *)ba_fileURLForBuggyWKWebView8:(NSURL *)fileURL
 {
     NSError *error = nil;

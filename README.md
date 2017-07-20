@@ -59,6 +59,11 @@
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAWKWebView
  
+ 最新更新时间：2017-07-20 【倒叙】<br>
+ 最新Version：【Version：1.0.7】<br>
+ 更新内容：<br>
+ 1.0.7.1、修复 JS OC 交互中添加的 nameArray 中的数据 偶尔无法释放完全的 bug，感谢群里 @唐海洋 同学提出的 bug！<br>
+ 
  最新更新时间：2017-07-14 【倒叙】<br>
  最新Version：【Version：1.0.6】<br>
  更新内容：<br>
@@ -712,6 +717,11 @@ NSURL *url = [[NSBundle mainBundle] URLForResource:@"BAWebView" withExtension:@"
 ## 5、更新记录：【倒叙】
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
+ 
+ 最新更新时间：2017-07-20 【倒叙】<br>
+ 最新Version：【Version：1.0.7】<br>
+ 更新内容：<br>
+ 1.0.7.1、修复 JS OC 交互中添加的 nameArray 中的数据 偶尔无法释放完全的 bug，感谢群里 @唐海洋 同学提出的 bug！<br>
  
  最新更新时间：2017-07-14 【倒叙】<br>
  最新Version：【Version：1.0.6】<br>
