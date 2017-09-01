@@ -14,7 +14,7 @@
 * 6、WKWebView 自定义 request post 数据到 JS（使用分类）
 * 7、WKWebView OC 拦截 JS URL 处理，详见demo
 * 8、修复 WKWebView 中的 alert 不能弹出的 bug！（详见 demo5）<br>
-* 9、新增 cell 中 WKWebView 高度自适应 demo（demo 有小部分遗留问题待解决）<br>
+* 9、新增 cell 中 WKWebView 高度完美自适应，具体使用 ba_web_isAutoHeight 属性即可自动获取高度<br>
 * 10、自定义修改 navigator.userAgent（详见 demo BAWebViewController）<br>
  
 ## 2、图片示例
@@ -58,6 +58,12 @@
  
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAWKWebView
+ 
+  
+ 最新更新时间：2017-09-01 【倒叙】<br>
+ 最新Version：【Version：1.0.8】<br>
+ 更新内容：<br>
+ 1.0.8.1、cell 中 添加 WK 高度完美自适应！具体使用 ba_web_isAutoHeight 属性即可自动获取高度<br>
  
  最新更新时间：2017-07-20 【倒叙】<br>
  最新Version：【Version：1.0.7】<br>
@@ -118,6 +124,12 @@
 #import <WebKit/WebKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+#define kBAKit_WK_title                 @"title"
+#define kBAKit_WK_estimatedProgress     @"estimatedProgress"
+#define kBAKit_WK_URL                   @"URL"
+#define kBAKit_WK_contentSize           @"contentSize"
+
 
 /**
  开始加载时调用
@@ -220,7 +232,10 @@ typedef void (^BAKit_webView_getCurrentHeightBlock)(CGFloat currentHeight);
  */
 @property(nonatomic, strong) NSString *ba_web_urlScheme;
 
-@property(nonatomic) BOOL ba_web_isFirstLoad;
+/**
+ 是否需要自动设定高度
+ */
+@property (nonatomic, assign) BOOL ba_web_isAutoHeight;
 
 @property(nonatomic, copy) BAKit_webView_didStartProvisionalNavigationBlock ba_web_didStartBlock;
 @property(nonatomic, copy) BAKit_webView_didCommitNavigationBlock ba_web_didCommitBlock;
@@ -318,69 +333,6 @@ typedef void (^BAKit_webView_getCurrentHeightBlock)(CGFloat currentHeight);
  */
 - (void)ba_web_addScriptMessageHandlerWithNameArray:(NSArray *)nameArray;
 
-
-@end
-NS_ASSUME_NONNULL_END
-```
-
-## BAWebViewController.h
-```
-NS_ASSUME_NONNULL_BEGIN
-
-@interface BAWebViewController : UIViewController
-
-@property(nonatomic, strong) UIColor * _Nullable ba_web_progressTintColor;
-@property(nonatomic, strong) UIColor *ba_web_progressTrackTintColor;
-
-/**
- *  加载一个 webview
- *
- *  @param request 请求的 NSURL URLRequest
- */
-- (void)ba_web_loadRequest:(NSURLRequest *)request;
-
-/**
- *  加载一个 webview
- *
- *  @param URL 请求的 URL
- */
-- (void)ba_web_loadURL:(NSURL *)URL;
-
-/**
- *  加载一个 webview
- *
- *  @param URLString 请求的 URLString
- */
-- (void)ba_web_loadURLString:(NSString *)URLString;
-
-/**
- *  加载本地网页
- *
- *  @param htmlName 请求的本地 HTML 文件名
- */
-- (void)ba_web_loadHTMLFileName:(NSString *)htmlName;
-
-/**
- *  加载本地 htmlString
- *
- *  @param htmlString 请求的本地 htmlString
- */
-- (void)ba_web_loadHTMLString:(NSString *)htmlString;
-
-/**
- *  加载 js 字符串，例如：高度自适应获取代码：
- // webView 高度自适应
- [self ba_web_stringByEvaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
- // 获取页面高度，并重置 webview 的 frame
- self.ba_web_currentHeight = [result doubleValue];
- CGRect frame = webView.frame;
- frame.size.height = self.ba_web_currentHeight;
- webView.frame = frame;
- }];
- *
- *  @param javaScriptString js 字符串
- */
-- (void)ba_web_stringByEvaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ _Nullable)(_Nullable id, NSError * _Nullable error))completionHandler;
 
 @end
 NS_ASSUME_NONNULL_END
@@ -718,6 +670,12 @@ NSURL *url = [[NSBundle mainBundle] URLForResource:@"BAWebView" withExtension:@"
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
  
+  
+ 最新更新时间：2017-09-01 【倒叙】<br>
+ 最新Version：【Version：1.0.8】<br>
+ 更新内容：<br>
+ 1.0.8.1、cell 中 添加 WK 高度完美自适应！具体使用 ba_web_isAutoHeight 属性即可自动获取高度<br>
+ 
  最新更新时间：2017-07-20 【倒叙】<br>
  最新Version：【Version：1.0.7】<br>
  更新内容：<br>
@@ -768,7 +726,7 @@ NSURL *url = [[NSBundle mainBundle] URLForResource:@"BAWebView" withExtension:@"
  1.0.0.7、WKWebView 自定义 request post 数据到 JS（使用分类）<br>
  
 ## 6、bug 反馈
-> 1、开发中遇到 bug，希望小伙伴儿们能够及时反馈与我们 BAHome 团队，我们必定会认真对待每一个问题！ <br>
+> 1、开发中遇到 bug，希望小伙伴儿们能够及时反馈与我们 [【BAHome】](https://github.com/BAHome)  团队，我们必定会认真对待每一个问题！ <br>
 
 > 2、以后提需求和 bug 的同学，记得把 git 或者博客链接给我们，我直接超链到你们那里！希望大家积极参与测试！<br> 
 
@@ -808,11 +766,17 @@ QQ：363605775 <br>
 git：[https://github.com/CrazyCoderShi](https://github.com/CrazyCoderShi) <br>
 简书：[http://www.jianshu.com/u/0726f4d689a3](http://www.jianshu.com/u/0726f4d689a3)
 
+> 唐海洋 <br> 
+QQ：790015339 <br> 
+git：[https://github.com/tanghaiyang1992](https://github.com/tanghaiyang1992) <br>
+简书：[http://www.jianshu.com/u/b833cfd6bd58](http://www.jianshu.com/u/b833cfd6bd58)
+
+
 ## 8、开发环境 和 支持版本
 > 开发使用 最新版本 Xcode，理论上支持 iOS 8 及以上版本，如有版本适配问题，请及时反馈！多谢合作！
 
 ## 9、感谢
-> 感谢 BAHome 团队成员倾力合作，后期会推出一系列 常用 UI 控件的封装，大家有需求得也可以在 issue 提出，如果合理，我们会尽快推出新版本！<br>
+> 感谢 [【BAHome】](https://github.com/BAHome)  团队成员倾力合作，后期会推出一系列 常用 UI 控件的封装，大家有需求得也可以在 issue 提出，如果合理，我们会尽快推出新版本！<br>
 
-> BAHome 的发展离不开小伙伴儿的信任与推广，再次感谢各位小伙伴儿的支持！
+> [【BAHome】](https://github.com/BAHome)  的发展离不开小伙伴儿的信任与推广，再次感谢各位小伙伴儿的支持！
 

@@ -13,6 +13,12 @@
 
 
 
+@interface WKWebView ()
+
+@property (nonatomic, assign) CGFloat webViewHeigt;
+
+@end
+
 @implementation WKWebView (BAKit)
 
 #pragma mark - hook
@@ -30,7 +36,7 @@
 {
     self.navigationDelegate = navigationDelegate;
     self.UIDelegate = uIDelegate;
-    
+    self.webViewHeigt = 0.f;
     [self ba_web_addNoti];
 }
 
@@ -67,32 +73,35 @@
 {
 //    NSLog(@"%s",__FUNCTION__);
 
-    [self removeObserver:self forKeyPath:@"title"];
-    [self removeObserver:self forKeyPath:@"estimatedProgress"];
-    [self removeObserver:self forKeyPath:@"URL"];
+    [self removeObserver:self forKeyPath:kBAKit_WK_title];
+    [self removeObserver:self forKeyPath:kBAKit_WK_estimatedProgress];
+    [self removeObserver:self forKeyPath:kBAKit_WK_URL];
+    if ( self.ba_web_isAutoHeight )
+    {
+        [self.scrollView removeObserver:self forKeyPath:kBAKit_WK_contentSize];
+    }
 }
 
-#pragma mark - 添加对WKWebView属性的监听
+#pragma mark - 添加对 WKWebView 属性的监听
 - (void)ba_web_addNoti
 {
     // 获取页面标题
     [self addObserver:self
-                   forKeyPath:@"title"
+                   forKeyPath:kBAKit_WK_title
                       options:NSKeyValueObservingOptionNew
                       context:nil];
     
     // 当前页面载入进度
     [self addObserver:self
-                   forKeyPath:@"estimatedProgress"
+                   forKeyPath:kBAKit_WK_estimatedProgress
                       options:NSKeyValueObservingOptionNew
                       context:nil];
     
     // 监听 URL，当之前的 URL 不为空，而新的 URL 为空时则表示进程被终止
     [self addObserver:self
-           forKeyPath:@"URL"
+           forKeyPath:kBAKit_WK_URL
               options:NSKeyValueObservingOptionNew
               context:nil];
-
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -100,7 +109,7 @@
                         change:(NSDictionary<NSString *,id> *)change
                        context:(void *)context
 {
-    if ([keyPath isEqualToString:@"title"])
+    if ([keyPath isEqualToString:kBAKit_WK_title])
     {
         if (self.ba_web_getTitleBlock)
         {
@@ -111,7 +120,7 @@
             self.ba_web_getCurrentUrlBlock(self.URL);
         }
     }
-    else if ([keyPath isEqualToString:@"estimatedProgress"])
+    else if ([keyPath isEqualToString:kBAKit_WK_estimatedProgress])
     {
         // estimatedProgress：加载进度，范围：0.0f ~ 1.0f
 //        NSLog(@"progress: %f", self.estimatedProgress);
@@ -120,13 +129,35 @@
             self.ba_web_isLoadingBlock(self.loading, self.estimatedProgress);
         }
     }
-    else if ([keyPath isEqualToString:@"URL"])
+    else if ([keyPath isEqualToString:kBAKit_WK_URL])
     {
         NSURL *newUrl = [change objectForKey:NSKeyValueChangeNewKey];
         NSURL *oldUrl = [change objectForKey:NSKeyValueChangeOldKey];
         if (![newUrl isKindOfClass:[NSURL class]] && [oldUrl isKindOfClass:[NSURL class]]) {
 //            [self reload];
         };
+    }
+    else if ( [keyPath isEqualToString:kBAKit_WK_contentSize] && [object isEqual:self.scrollView] )
+    {
+        __block CGFloat height = floorf([change[NSKeyValueChangeNewKey] CGSizeValue].height);
+        
+        if ( height != self.webViewHeigt )
+        {
+            self.webViewHeigt = height;
+            
+            CGRect frame = self.frame;
+            frame.size.height = height;
+            self.frame = frame;
+            
+            if ( self.ba_web_getCurrentHeightBlock )
+            {
+                self.ba_web_getCurrentHeightBlock(height);
+            }
+        }
+        else if ( height == self.webViewHeigt && height > 0.f )
+        {
+            
+        }
     }
     
     // 加载完成
@@ -315,12 +346,14 @@
         webView.alpha = 1.f;
     }];
     
-//    NSString *heightString = @"document.body.offsetHeight";
-//    NSString *heightString2 = @"document.getElementById(\"content\").offsetHeight;";
-//    NSString *heightString3 = @"(document.height !== undefined) ? document.height : document.body.offsetHeight;";
-    NSString *heightString4 = @"document.body.scrollHeight";
+    if (self.ba_web_didFinishBlock)
+    {
+        self.ba_web_didFinishBlock(webView, navigation);
+    }
     
-    if (self.ba_web_getCurrentHeightBlock)
+    NSString *heightString4 = @"document.body.scrollHeight";
+
+    if (self.ba_web_getCurrentHeightBlock && !self.ba_web_isAutoHeight)
     {
         // webView 高度自适应
         [self ba_web_stringByEvaluateJavaScript:heightString4 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
@@ -336,10 +369,7 @@
             //        [webView.superview setNeedsLayout];
         }];
     }
-    if (self.ba_web_didFinishBlock)
-    {
-        self.ba_web_didFinishBlock(webView, navigation);
-    }
+
 }
 
 // 页面加载失败时调用
@@ -518,6 +548,34 @@
     BAKit_Objc_exchangeMethodAToB(NSSelectorFromString(@"dealloc"),
                                   @selector(ba_web_dealloc));
 
+}
+
+- (void)setWebViewHeigt:(CGFloat)webViewHeigt
+{
+    BAKit_Objc_setObj(@selector(webViewHeigt), @(webViewHeigt));
+}
+
+- (CGFloat)webViewHeigt
+{
+    return [BAKit_Objc_getObj floatValue];
+}
+
+- (void)setBa_web_isAutoHeight:(BOOL)ba_web_isAutoHeight
+{
+    BAKit_Objc_setObj(@selector(ba_web_isAutoHeight), @(ba_web_isAutoHeight));
+    
+    if ( ba_web_isAutoHeight )
+    {
+        // 监听高度变化
+        [self.scrollView addObserver:self
+                          forKeyPath:kBAKit_WK_contentSize
+                             options:NSKeyValueObservingOptionNew
+                             context:nil];
+    }
+}
+
+- (BOOL)ba_web_isAutoHeight {
+    return [BAKit_Objc_getObj boolValue];
 }
 
 - (BOOL)ba_web_canGoBack

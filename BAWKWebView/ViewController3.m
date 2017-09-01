@@ -34,22 +34,11 @@ static NSString * const htmlString1 = @"<img style=\"width:100%;\" src=\"http://
 
 - (void)setupUI
 {
-    self.title = @"BAGridView";
+//    self.title = @"BAGridView";
     self.view.backgroundColor = BAKit_Color_White_pod;
     
-//    [BAKit_NotiCenter addObserver:self selector:@selector(setTableViewCellHight:)  name:@"getCellHightNotification" object:nil];
 }
 
-//- (void)setTableViewCellHight:(NSNotification *)info
-//{
-//    NSDictionary *dic =info.userInfo;
-//    //判断通知中的参数是否与原来的值一致,防止死循环
-//    if (self.cell_h != [[dic objectForKey:@"height"]floatValue])
-//    {
-//        self.cell_h = [[dic objectForKey:@"height"]floatValue];
-//        [self.tableView reloadData];
-//    }
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -59,7 +48,6 @@ static NSString * const htmlString1 = @"<img style=\"width:100%;\" src=\"http://
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BACell *cell = [BACell ba_creatCellWithTableView:tableView];
-    cell.backgroundColor = BAKit_Color_Red_pod;
     
     WebVIewModel *model = self.dataArray[indexPath.row];
     cell.model = model;

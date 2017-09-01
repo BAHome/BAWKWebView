@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BAWKWebView/BAWKWebView/WKWebView+BAKit.m"
-            timestampString = "522214107.222351"
+            timestampString = "525946234.644215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
             landmarkName = "-webView:decidePolicyForNavigationAction:decisionHandler:"
             landmarkType = "7">
          </BreakpointContent>

@@ -68,6 +68,7 @@ static NSString * const kCellID = @"BACell_id";
     {
 //        _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:self.webConfig];
         _webView = [WKWebView new];
+        _webView.ba_web_isAutoHeight = YES;
         //  添加 WKWebView 的代理，注意：用此方法添加代理
         BAKit_WeakSelf
         [_webView ba_web_initWithDelegate:weak_self.webView uIDelegate:weak_self.webView];

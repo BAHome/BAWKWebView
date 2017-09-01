@@ -25,6 +25,11 @@
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAWKWebView
  
+ 最新更新时间：2017-09-01 【倒叙】<br>
+ 最新Version：【Version：1.0.8】<br>
+ 更新内容：<br>
+ 1.0.8.1、cell 中 添加 WK 高度完美自适应！具体使用 ba_web_isAutoHeight 属性即可自动获取高度<br>
+ 
  最新更新时间：2017-07-20 【倒叙】<br>
  最新Version：【Version：1.0.7】<br>
  更新内容：<br>

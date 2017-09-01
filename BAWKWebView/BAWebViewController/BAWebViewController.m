@@ -103,7 +103,7 @@
 - (void)ba_reload
 {
     [self.webView ba_web_reload];
-    [self changeNavigatorUserAgent];
+//    [self changeNavigatorUserAgent];
 }
 
 - (void)ba_web_progressShow
@@ -342,14 +342,14 @@
         //  添加 WKWebView 的代理，注意：用此方法添加代理
         BAKit_WeakSelf
         [self.webView ba_web_initWithDelegate:weak_self.webView uIDelegate:weak_self.webView];
-        
+        _webView.ba_web_isAutoHeight = NO;
         self.webView.multipleTouchEnabled = YES;
         self.webView.autoresizesSubviews = YES;
         //        self.wkWebView.scrollView.alwaysBounceVertical = YES;
         
         [self.view addSubview:self.webView];
         
-        [self changeNavigatorUserAgent];
+//        [self changeNavigatorUserAgent];
     }
     return _webView;
 }

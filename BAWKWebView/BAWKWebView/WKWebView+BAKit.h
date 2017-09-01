@@ -10,6 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define kBAKit_WK_title                 @"title"
+#define kBAKit_WK_estimatedProgress     @"estimatedProgress"
+#define kBAKit_WK_URL                   @"URL"
+#define kBAKit_WK_contentSize           @"contentSize"
+
+
 /**
  开始加载时调用
  
@@ -110,6 +116,11 @@ typedef void (^BAKit_webView_getCurrentHeightBlock)(CGFloat currentHeight);
  需要拦截的 urlScheme，先设置此项，再 调用 ba_web_decidePolicyForNavigationActionBlock 来处理，详见 demo
  */
 @property(nonatomic, strong) NSString *ba_web_urlScheme;
+
+/**
+ 是否需要自动设定高度
+ */
+@property (nonatomic, assign) BOOL ba_web_isAutoHeight;
 
 @property(nonatomic, copy) BAKit_webView_didStartProvisionalNavigationBlock ba_web_didStartBlock;
 @property(nonatomic, copy) BAKit_webView_didCommitNavigationBlock ba_web_didCommitBlock;
