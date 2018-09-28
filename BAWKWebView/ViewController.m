@@ -163,7 +163,8 @@ static NSString * const kURL1 = @"https://www.baidu.com";
         self.tableView.backgroundColor = BAKit_Color_Gray_11_pod;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
-        
+        self.tableView.tableFooterView = [UIView new];
+
         self.tableView.estimatedRowHeight = 44;
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         

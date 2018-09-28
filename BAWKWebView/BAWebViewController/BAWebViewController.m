@@ -25,7 +25,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self setupUI];
 }
 
@@ -45,7 +44,10 @@
     };
     
     self.webView.ba_web_didFinishBlock = ^(WKWebView *webView, WKNavigation *navigation) {
+        NSLog(@"加载网页结束");
         
+        // WKWebview 禁止长按(超链接、图片、文本...)弹出效果
+        [webView ba_web_stringByEvaluateJavaScript:@"document.documentElement.style.webkitTouchCallout='none'" completionHandler:nil];
     };
     
     self.webView.ba_web_isLoadingBlock = ^(BOOL isLoading, CGFloat progress) {
@@ -55,7 +57,7 @@
         self.progressView.progress = progress;
         if (self.progressView.progress == 1.0f)
         {
-            [self ba_web_progressHidder];
+            [self ba_web_progressHidden];
         }
     };
     
@@ -92,8 +94,10 @@
             NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:customUserAgent, @"UserAgent", nil];
             [BAKit_NSUserDefaults registerDefaults:dictionary];
             [BAKit_NSUserDefaults synchronize];
-            
-            [self.webView setCustomUserAgent:customUserAgent];
+            if (([[UIDevice currentDevice] systemVersion].floatValue >= 9.0)) {
+                 [self.webView setCustomUserAgent:customUserAgent];
+            }
+           
             [self ba_reload];
         }
 
@@ -116,7 +120,7 @@
     [self.navigationController.view bringSubviewToFront:self.progressView];
 }
 
-- (void)ba_web_progressHidder
+- (void)ba_web_progressHidden
 {
     /*
      *添加一个简单的动画，将progressView的Height变为1.4倍，在开始加载网页的代理中会恢复为1.5倍
@@ -329,7 +333,7 @@
     [super viewDidLayoutSubviews];
     
     self.webView.frame = CGRectMake(0, 0, BAKit_SCREEN_WIDTH, BAKit_SCREEN_HEIGHT);
-    self.progressView.frame = CGRectMake(0, 64, BAKit_SCREEN_WIDTH, 20);
+    self.progressView.frame = CGRectMake(0, 0, BAKit_SCREEN_WIDTH, 20);
 }
 
 #pragma mark - setter / getter
@@ -340,12 +344,18 @@
     {
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:self.webConfig];
         //  添加 WKWebView 的代理，注意：用此方法添加代理
-        BAKit_WeakSelf
-        [self.webView ba_web_initWithDelegate:weak_self.webView uIDelegate:weak_self.webView];
+        
+        [self.webView ba_web_initWithDelegate:self.webView uIDelegate:self.webView];
         _webView.ba_web_isAutoHeight = NO;
         self.webView.multipleTouchEnabled = YES;
         self.webView.autoresizesSubviews = YES;
         //        self.wkWebView.scrollView.alwaysBounceVertical = YES;
+        
+//        [self.webView evaluateJavaScript:@"document.documentElement.style.webkitTouchCallout='none'"];
+        
+//        [self.webView ba_web_stringByEvaluateJavaScript:@"document.documentElement.style.webkitTouchCallout='none'" completionHandler:nil];
+        
+        
         
         [self.view addSubview:self.webView];
         

@@ -40,30 +40,6 @@
     [self ba_web_addNoti];
 }
 
-//- (instancetype)ba_web_init
-//{
-//    [self ba_web_init];
-//    
-//    self.navigationDelegate = self;
-//    self.UIDelegate = self;
-//    
-//    [self ba_web_addNoti];
-//
-//    return self;
-//}
-//
-//- (instancetype)ba_web_initWithFrame
-//{
-//    [self ba_web_initWithFrame];
-//    
-//    self.navigationDelegate = self;
-//    self.UIDelegate = self;
-//    
-//    [self ba_web_addNoti];
-//    
-//    return self;
-//}
-
 - (void)ba_web_dealloc
 {
     [self ba_removeNoti];
@@ -72,10 +48,19 @@
 - (void)ba_removeNoti
 {
 //    NSLog(@"%s",__FUNCTION__);
-
-    [self removeObserver:self forKeyPath:kBAKit_WK_title];
-    [self removeObserver:self forKeyPath:kBAKit_WK_estimatedProgress];
-    [self removeObserver:self forKeyPath:kBAKit_WK_URL];
+    @try {
+        //        Code that can potentially throw an exception[可能抛出异常的代码]
+        [self removeObserver:self forKeyPath:kBAKit_WK_title];
+        [self removeObserver:self forKeyPath:kBAKit_WK_estimatedProgress];
+        [self removeObserver:self forKeyPath:kBAKit_WK_URL];
+    } @catch (NSException *exception) {
+        //        Handle an exception thrown in the @try block[处理@try块中抛出的异常]
+    } @finally {
+        //        Code that gets executed whether or not an exception is thrown[无论是否抛出异常，执行的代码都是被执行的]
+    }
+//    [self removeObserver:self forKeyPath:kBAKit_WK_title];
+//    [self removeObserver:self forKeyPath:kBAKit_WK_estimatedProgress];
+//    [self removeObserver:self forKeyPath:kBAKit_WK_URL];
     if ( self.ba_web_isAutoHeight )
     {
         [self.scrollView removeObserver:self forKeyPath:kBAKit_WK_contentSize];
@@ -111,22 +96,36 @@
 {
     if ([keyPath isEqualToString:kBAKit_WK_title])
     {
-        if (self.ba_web_getTitleBlock)
+        if (object == self)
         {
-            self.ba_web_getTitleBlock(self.title);
+            if (self.ba_web_getTitleBlock)
+            {
+                self.ba_web_getTitleBlock(self.title);
+            }
+            if (self.ba_web_getCurrentUrlBlock)
+            {
+                self.ba_web_getCurrentUrlBlock(self.URL);
+            }
         }
-        if (self.ba_web_getCurrentUrlBlock)
+        else
         {
-            self.ba_web_getCurrentUrlBlock(self.URL);
+            [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
         }
     }
     else if ([keyPath isEqualToString:kBAKit_WK_estimatedProgress])
     {
         // estimatedProgress：加载进度，范围：0.0f ~ 1.0f
 //        NSLog(@"progress: %f", self.estimatedProgress);
-        if (self.ba_web_isLoadingBlock)
+        if (object == self)
         {
-            self.ba_web_isLoadingBlock(self.loading, self.estimatedProgress);
+            if (self.ba_web_isLoadingBlock)
+            {
+                self.ba_web_isLoadingBlock(self.loading, self.estimatedProgress);
+            }
+        }
+        else
+        {
+            [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
         }
     }
     else if ([keyPath isEqualToString:kBAKit_WK_URL])
@@ -137,7 +136,7 @@
 //            [self reload];
         };
     }
-    else if ( [keyPath isEqualToString:kBAKit_WK_contentSize] && [object isEqual:self.scrollView] )
+    else if ([keyPath isEqualToString:kBAKit_WK_contentSize] && [object isEqual:self.scrollView])
     {
         __block CGFloat height = floorf([change[NSKeyValueChangeNewKey] CGSizeValue].height);
         
@@ -159,10 +158,14 @@
             
         }
     }
-    
+    else
+    {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
     // 加载完成
     if (!self.loading)
     {
+        NSLog(@"加载的URL：%@", self.URL.absoluteString);
         if (self.ba_web_isLoadingBlock)
         {
             self.ba_web_isLoadingBlock(self.loading, 1.0F);
@@ -265,6 +268,7 @@
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
+    
     // APPStore
     if ([url.absoluteString containsString:@"itunes.apple.com"])
     {
@@ -272,6 +276,7 @@
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
+    
     // 调用电话
     if ([url.scheme isEqualToString:@"tel"])
     {
@@ -288,6 +293,12 @@
 //    BOOL isMainframe = [frameInfo isMainFrame];
 //    NSLog(@"isMainframe :%d", isMainframe);
     
+    // 此情况处理具体请看博客：http://www.jianshu.com/p/3a75d7348843
+    if (!navigationAction.targetFrame.isMainFrame)
+    {
+        [webView evaluateJavaScript:@"var a = document.getElementsByTagName('a');for(var i=0;i<a.length;i++){a[i].setAttribute('target','');}" completionHandler:nil];
+    }
+
     if (![self ba_externalAppRequiredToOpenURL:url])
     {
         if (!navigationAction.targetFrame)
@@ -302,7 +313,7 @@
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
-
+    
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
@@ -346,6 +357,19 @@
         webView.alpha = 1.f;
     }];
     
+//    [webView ba_web_stringByEvaluateJavaScript:@"document.documentElement.style.webkitTouchCallout='none'" completionHandler:nil];
+
+//    for (UIView* subview in webView.scrollView.subviews) {
+//        if ([subview isKindOfClass:NSClassFromString(@"WKContentViewMinusAccessoryView")])
+//        {
+//            for (UIGestureRecognizer* longPress in subview.gestureRecognizers) {
+//                if ([longPress isKindOfClass:UILongPressGestureRecognizer.class]) {
+//                    [subview removeGestureRecognizer:longPress];
+//                }
+//            }
+//        }
+//    }
+    
     if (self.ba_web_didFinishBlock)
     {
         self.ba_web_didFinishBlock(webView, navigation);
@@ -373,7 +397,7 @@
 }
 
 // 页面加载失败时调用
-- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
 {
     if (self.ba_web_didFailBlock)
     {
@@ -574,7 +598,8 @@
     }
 }
 
-- (BOOL)ba_web_isAutoHeight {
+- (BOOL)ba_web_isAutoHeight
+{
     return [BAKit_Objc_getObj boolValue];
 }
 
